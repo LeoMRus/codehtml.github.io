@@ -14,7 +14,7 @@
 /* Polished header and accessible print rendering */
 .header-actions{margin:8px 0 0;display:flex;gap:7px;flex-wrap:wrap}
 .header-actions .ctl{padding:7px 10px}
-@page{size:A4 landscape;margin:10mm}
+@page{size:A4 landscape;margin:8mm}
 @media print{
  html,body{background:#fff!important;color:#172437!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
  *{box-shadow:none!important;text-shadow:none!important}
@@ -78,6 +78,82 @@
  .changes{padding:10px!important}.changes h2{font-size:14px!important;color:#172c41!important}
  .changeitem{border-color:#d8e1eb!important;padding:6px 0!important}.changeDate{font-size:9px!important;color:#566a7f!important}.changeBody{font-size:10px!important}.changeBody strong{color:#1e3248!important}.changeBody small{color:#536a7f!important;font-size:8px!important}
 }
+
+/* Timeline v2: true cash/core session, clear opening markers, frozen labels on narrow screens. */
+.print-summary{display:none}
+.chart{min-width:900px}
+.hours,.trow{grid-template-columns:184px minmax(0,1fr)}
+.trow{min-height:60px}
+.hours{min-height:35px}
+.axislabel,.mname{position:sticky;left:0;z-index:25;background:#162232;border-right:1px solid #33475d}
+.axislabel{z-index:35;padding-top:11px}
+.mname{padding:8px 8px;gap:7px}
+.mtext strong{font-size:11.5px}
+.mtext small.core-caption{color:#bde4fa;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.track{overflow:visible}
+.bar.base{top:34px;height:9px;border-radius:3px;opacity:.42;box-shadow:none}
+.bar.core{top:27px;height:20px;opacity:1;box-shadow:inset 0 1px 0 #ffffff3e,0 0 0 1px #ffffff18;border-radius:5px}
+.bar.core:hover,.bar.base:hover{filter:brightness(1.22)}
+.bar.special{opacity:.64}
+.bar.base.special{background:repeating-linear-gradient(135deg,#6398a9,#6398a9 6px,#335e70 6px,#335e70 12px)}
+.main-open,.reopen{position:absolute;top:12px;bottom:5px;width:2px;background:#f7fcff;z-index:16;pointer-events:none;box-shadow:0 0 0 1px #1023378a}
+.main-open::after,.reopen::after{content:"";position:absolute;width:7px;height:7px;top:24px;left:-2.5px;border-radius:50%;background:#fff;border:1px solid #0c2137}
+.reopen{width:1px;opacity:.7;background:#ffffffb2;z-index:15}
+.reopen::after{width:5px;height:5px;left:-2px;background:#dceeff}
+.open-time{position:absolute;top:-9px;left:0;transform:translateX(-50%);padding:2px 5px;border:1px solid #d3e8f3;border-radius:5px;background:#f0f8ff;color:#10293b;white-space:nowrap;font-size:10px;line-height:1.1;font-weight:800;font-variant-numeric:tabular-nums;box-shadow:0 2px 8px #0003}
+.main-open.at-start .open-time{transform:none}
+.main-open.at-end .open-time{transform:translateX(-100%)}
+.now-line{z-index:20;background:#ffc34e}
+.legend{gap:12px;line-height:1.45}
+.main-symbol{background:#e0f6ff!important;border:1px solid #65b4dc;height:13px;width:17px}
+.after-symbol{background:#7a90a5!important;opacity:.55;height:7px;width:17px}
+.marker-symbol{width:3px;height:15px;background:#fff!important;border-radius:1px;box-shadow:0 0 0 1px #5d7188}
+.timeline-nav{display:flex;align-items:center;justify-content:space-between;gap:7px;padding:0 24px 10px;flex-wrap:wrap}
+.nav-hint{font-size:11px;color:#9badc0}
+.nav-jumps{display:flex;gap:5px;flex-wrap:wrap}
+.nav-jumps button{background:#1b2d40;border:1px solid #39516a;color:#c5d9e8;border-radius:8px;padding:5px 9px;font-size:11px;font-weight:700}
+.nav-jumps button:hover{border-color:#76b7da;color:white}
+.nav-jumps button:focus-visible{outline:2px solid #8cd0fa;outline-offset:2px}
+@media(max-width:1129px){
+ .chart{min-width:880px}
+ .hours,.trow{grid-template-columns:174px minmax(0,1fr)}
+}
+@media(max-width:600px){
+ .chart{min-width:865px}
+ .hours,.trow{grid-template-columns:150px minmax(0,1fr)}
+ .trow{min-height:61px}
+ .mname{padding:7px 5px;gap:4px}
+ .flag{font-size:15px;flex-basis:20px}
+ .mtext strong{font-size:11px;line-height:1.15}
+ .mtext small{font-size:10px}
+ .timeline-nav{padding:0 11px 9px}
+ .nav-hint{width:100%;text-align:center}
+ .nav-jumps{width:100%;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px}
+ .nav-jumps button{min-width:0;padding:8px 2px;font-size:10px}
+ .chart-viewport{padding:0 7px 13px}
+ .legend{gap:8px;padding-left:12px;padding-right:12px}
+ .axislabel{padding-left:5px;font-size:9px}
+}
+@media print{
+ .timeline-nav{display:none!important}
+ .info{display:none!important}
+ .print-summary{display:block!important;color:#2e4259!important;font-size:9px!important;line-height:1.3!important;padding:5px 10px 10px!important}
+ .sidecol{display:block!important}
+ .sidecol .panel{width:100%!important}
+ .mtext strong,.mtext small{line-height:1.12!important}
+ .mname{padding:0 4px!important}
+ .chart{min-width:0!important}
+ .axislabel,.mname{position:static!important;background:#eef4f9!important;border-right:1px solid #c4d4df!important}
+ .trow{height:23px!important;min-height:23px!important}
+ .mtext strong{font-size:9px!important}
+ .mtext small.core-caption{color:#214a69!important}
+ .bar.base{top:13px!important;height:5px!important;opacity:.55!important}
+ .bar.core{top:10px!important;height:10px!important;opacity:1!important}
+ .main-open,.reopen{top:4px!important;bottom:1px!important;background:#183447!important}
+ .main-open::after,.reopen::after{top:7px!important;width:4px!important;height:4px!important}
+ .open-time{font-size:7px!important;top:-4px!important;padding:0 2px!important;background:#fff!important;border-color:#a6bac9!important;color:#112e43!important}
+ .marker-symbol{background:#183447!important}
+}
 </style>
 </head>
 <body>
@@ -86,25 +162,25 @@
   <div>
     <div class="eyebrow">MARKET CLOCK / БИРЖИ МИРА</div>
     <h1>Когда открываются рынки</h1>
-    <p class="intro">Сессии 14 рынков и календарь праздников до <strong>31.12.2027</strong>. Выбери часовой пояс — график учтёт летнее время. Работает офлайн.</p>
+    <p class="intro">15 торговых лент и календарь праздников до <strong>31.12.2027</strong>. Выбери часовой пояс — график учтёт летнее время. Работает офлайн.</p>
   </div>
-  <div class="time-settings"><div class="live" aria-live="polite"><small><span class="pulse"></span><span id="clockLabel">Сейчас · Мадрид</span></small><div class="clock" id="liveClock">--:--:--</div><div class="timeDate" id="liveDate">Europe/Madrid</div></div><label class="setting-label" for="timezoneSelect">Часовой пояс графика</label><select class="timezone-select" id="timezoneSelect" aria-label="Выбрать часовой пояс"><option value="Europe/Madrid">Мадрид</option></select><div class="zone-caption" id="timezoneCaption"></div><div class="download-tools header-actions"><button class="ctl" type="button" onclick="window.print()">Печать / PDF</button><button class="ctl" id="copyLink" type="button">Скопировать ссылку на дату</button></div></div>
+  <div class="time-settings"><div class="live" aria-live="polite"><small><span class="pulse"></span><span id="clockLabel">Сейчас · Мадрид</span></small><div class="clock" id="liveClock">--:--:--</div><div class="timeDate" id="liveDate">Europe/Madrid</div></div><label class="setting-label" for="timezoneSelect">Часовой пояс графика</label><select class="timezone-select" id="timezoneSelect" aria-label="Выбрать часовой пояс"><option value="Europe/Madrid">Мадрид</option></select><div class="zone-caption" id="timezoneCaption"></div><label class="setting-label" for="languageSelect">Язык интерфейса</label><select class="timezone-select" id="languageSelect" aria-label="Язык интерфейса"><option value="auto">Авто</option><option value="ru">Русский</option><option value="en">English</option><option value="es">Español</option></select><div class="download-tools header-actions"><button class="ctl" type="button" onclick="window.print()">Печать / PDF</button><button class="ctl" id="copyLink" type="button">Скопировать ссылку на дату</button></div></div>
 </header>
 <section class="layout">
  <div class="maincol">
   <article class="panel">
-   <div class="ph"><div><h2>График торговых сессий</h2><p>Блоки — открытые периоды, промежутки — перерывы. Вертикальная жёлтая линия — текущее время.</p></div><div class="controls"><button class="ctl" id="prev" type="button" title="Предыдущий день">←</button><button class="ctl primary" id="today" type="button">Сегодня</button><button class="ctl" id="next" type="button" title="Следующий день">→</button></div></div>
+   <div class="ph"><div><h2>График торговых сессий</h2><p>Яркие полосы — основная сессия, приглушённые — дополнительные часы / Globex. Белый маркер — открытие основной сессии; жёлтая линия — сейчас.</p></div><div class="controls"><button class="ctl" id="prev" type="button" title="Предыдущий день">←</button><button class="ctl primary" id="today" type="button">Сегодня</button><button class="ctl" id="next" type="button" title="Следующий день">→</button></div></div>
    <div class="choose" role="group" aria-label="Группы рынков"><button data-filter="all" class="active">Все рынки</button><button data-filter="asia">Азия / Австралия</button><button data-filter="ru">MOEX</button><button data-filter="europe">Европа</button><button data-filter="us">США</button></div>
    <div class="ph" style="padding-top:0"><div class="selected-label" id="selectedDate"></div><div class="datebar"><span style="font-size:11px;color:#8ea1b6">Выбери дату или месяц → <input type="date" class="date-picker" id="dateInput" min="2026-11-23" max="2027-12-31" aria-label="Выбрать дату" /></span></div></div>
    <div class="stats"><div class="stat"><b id="openCount">—</b><small>торгуют по выбранной дате</small></div><div class="stat"><b id="closedCount">—</b><small>закрыты</small></div><div class="stat"><b id="specialCount">—</b><small>особый график / уточнить</small></div></div>
-   <div id="dstNotice" class="dst-notice" aria-live="polite"></div><div class="chart-viewport"><div class="chart" id="timeline" role="img" aria-label="Суточная шкала торговых сессий по мадридскому времени"></div></div>
-   <div class="legend"><span class="key"><span class="swatch"></span>Азия</span><span class="key"><span class="swatch rus"></span>MOEX</span><span class="key"><span class="swatch eur"></span>Европа</span><span class="key"><span class="swatch usa"></span>США</span><span class="key"><span class="swatch part"></span>Доп. сессия</span><span class="key"><span class="swatch closed"></span>Закрыто</span></div>
-   <section class="info" id="dayInfo" aria-live="polite"></section>
+   <div id="dstNotice" class="dst-notice" aria-live="polite"></div><div class="timeline-nav" aria-label="Быстрый переход по времени"><span class="nav-hint">Шкала 00–24 · прокрути горизонтально <span aria-hidden="true">→</span></span><div class="nav-jumps"><button type="button" data-jump="asia">Азия</button><button type="button" data-jump="moex">MOEX</button><button type="button" data-jump="europe">Европа</button><button type="button" data-jump="us">США</button><button type="button" data-jump="now">Сейчас</button></div></div><div class="chart-viewport" id="timelineViewport"><div class="chart" id="timeline" role="img" aria-label="Суточная шкала торговых сессий в выбранном часовом поясе"></div></div>
+   <div class="legend"><span class="key"><span class="swatch main-symbol"></span>Основная сессия</span><span class="key"><span class="swatch after-symbol"></span>Доп. часы / Globex</span><span class="key"><span class="swatch marker-symbol"></span>Открытие основной</span><span class="key"><span class="swatch"></span>Азия</span><span class="key"><span class="swatch rus"></span>MOEX</span><span class="key"><span class="swatch eur"></span>Европа</span><span class="key"><span class="swatch usa"></span>США</span><span class="key"><span class="swatch part"></span>Доп. сессия</span><span class="key"><span class="swatch closed"></span>Закрыто</span></div>
+   <div class="print-summary" id="printSummary"></div><section class="info" id="dayInfo" aria-live="polite"></section>
   </article>
  </div>
  <div class="sidecol">
   <article class="panel"><div class="cal-head"><h2>Календарь рынков</h2><p>Нажми день — расписание и статусы пересчитаются.</p><div class="cal-nav"><button class="ctl" type="button" id="monthPrev" aria-label="Предыдущий месяц">‹</button><select class="month-select" id="monthSelect" aria-label="Выбрать месяц"></select><button class="ctl" type="button" id="monthNext" aria-label="Следующий месяц">›</button></div></div><div class="months" id="months"></div><div class="cal-help"><span class="inline-dot" style="background:var(--red)"></span> закрытия &nbsp; <span class="inline-dot" style="background:var(--amber)"></span> сокращённый день &nbsp; <span class="inline-dot" style="background:var(--teal)"></span> доп. сессия &nbsp; <span class="inline-dot" style="background:var(--violet)"></span> требует проверки</div></article>
-  <article class="panel"><div class="changes"><h2>Важные даты рядом</h2><div id="keyDates"></div></div></article>
+  
  </div>
 </section>
 
@@ -123,6 +199,9 @@ const ZONES=[
 const SOURCES=[
  ['MOEX: график 2027','https://www.moex.com/n104687'],
  ['MOEX: торговый календарь','https://www.moex.com/en/tradingcalendar/'],
+ ['MOEX: фондовый рынок / сессии','https://www.moex.com/torgovye-sessii-na-fondovom-rynke'],
+ ['MOEX: срочный рынок / сессии','https://www.moex.com/torgovye-sessii-na-srochnom-rynke'],
+ ['CME: ES/NQ и часы cash-сессии','https://www.cmegroup.com/markets/equities/sp-500-and-nasdaq-100-futures.html'],
  ['JPX: выходные 2027','https://www.jpx.co.jp/english/corporate/about-jpx/calendar/'],
  ['ASX: календарь 2027','https://www.asx.com.au/markets/market-resources/trading-hours-calendar/cash-market-trading-hours/trading-calendar'],
  ['TWSE: календарь 2027','https://www.twse.com.tw/holidaySchedule/holidaySchedule?response=html'],
@@ -147,7 +226,8 @@ const MK=[
  ['hkex','HKEX / Гонконг','Hang Seng · акции','🇭🇰','asia','Asia/Hong_Kong',[['09:30','12:00'],['13:00','16:00']]],
  ['sse','SSE / Китай','Шанхай / Шэньчжэнь · акции','🇨🇳','asia','Asia/Shanghai',[['09:30','11:30'],['13:00','15:00']]],
  ['nse','NSE / Индия','Nifty 50 · акции','🇮🇳','asia','Asia/Kolkata',[['09:15','15:30']]],
- ['moex','MOEX / Москва','Акции / срочный рынок · обобщённо','🇷🇺','ru','Europe/Moscow',[['07:00','09:00'],['09:00','19:00'],['19:00','23:50']]],
+ ['moex','MOEX / акции','Мосбиржа · акции','🇷🇺','ru','Europe/Moscow',[['06:50','09:50'],['09:50','19:00'],['19:00','23:50']]],
+ ['moexf','MOEX / фьючерсы','Мосбиржа · срочный рынок','🇷🇺','ru','Europe/Moscow',[['07:00','10:00'],['10:00','19:00'],['19:00','23:50']]],
  ['xetra','Xetra / Франкфурт','DAX · акции','🇩🇪','europe','Europe/Berlin',[['09:00','17:30']]],
  ['euronext','Euronext / Париж','CAC 40 · акции','🇫🇷','europe','Europe/Paris',[['09:00','17:30']]],
  ['lse','LSE / Лондон','FTSE 100 · акции','🇬🇧','europe','Europe/London',[['08:00','16:30']]],
@@ -173,7 +253,8 @@ partial('2026-11-27','nyse','После Thanksgiving: закрытие акци�
 partial('2026-11-27','cme','После Thanksgiving: ES/NQ до 12:15 CT',[['00:00','12:15']]);
 // Weekend sessions: published by MOEX for December 2026
 for(const d of ['2026-12-05','2026-12-06','2026-12-12','2026-12-13','2026-12-19','2026-12-20','2026-12-26','2026-12-27'])
- ev(d,'moex','special','Дополнительная выходная сессия MOEX: 09:50–19:00 MSK (только допущенные инструменты)',[['09:50','19:00']]);
+ { ev(d,'moex','special','Дополнительная выходная сессия MOEX, акции: 09:50–19:00 MSK (только допущенные инструменты)',[['09:50','19:00']]);
+   ev(d,'moexf','special','Дополнительная выходная сессия MOEX, фьючерсы: 10:00–19:00 MSK (только допущенные инструменты)',[['10:00','19:00']]); }
 close('2026-12-24','xetra','Xetra не торгуется в сочельник');
 partial('2026-12-24','asx','ASX сокращённый день, до 14:10 Сидней',[['10:00','14:10']]);
 partial('2026-12-24','hkex','HKEX только утренняя сессия, аукцион закрытия отдельно',[['09:30','12:00']]);
@@ -252,6 +333,51 @@ const FEATURED=[
  ['2027-12-24','Christmas 2027','NYSE закрыта, Европа частично сокращена'],
  ['2027-12-31','Последний день года','JPX/Xetra закрыты, часть рынков полдня']
 ];
+// UI localization. Market hours and holiday rules stay locale-independent.
+const I18N={"ru":{"eyebrow":"MARKET CLOCK / БИРЖИ МИРА","pageTitle":"Когда открываются рынки","intro":"15 торговых лент и календарь праздников до <strong>31.12.2027</strong>. Часовой пояс и язык определяются браузером автоматически. Работает офлайн.","zoneLabel":"Часовой пояс графика","langLabel":"Язык интерфейса","autoZone":"Авто (браузер: {value})","autoLang":"Авто (браузер: {value})","zoneCaption":"Время на графике: {value} · {offset}","print":"Печать / PDF","copy":"Скопировать ссылку на дату","copied":"Скопировано ✓","chartTitle":"График торговых сессий","chartDesc":"Яркие полосы — основная сессия, приглушённые — дополнительные часы / Globex. Белый маркер — открытие основной сессии; жёлтая линия — сейчас.","prevDay":"Предыдущий день","nextDay":"Следующий день","today":"Сегодня","filtersLabel":"Группы рынков","all":"Все рынки","asia":"Азия / Австралия","europe":"Европа","us":"США","dateHint":"Выбери дату или месяц →","datePicker":"Выбрать дату","openStat":"торгуют по выбранной дате","closedStat":"закрыты","specialStat":"особый график / уточнить","jumpLabel":"Быстрый переход по времени","jumpHint":"Шкала 00–24 · прокрути горизонтально →","now":"Сейчас","chartAria":"Суточная шкала торговых сессий в выбранном часовом поясе","coreLegend":"Основная сессия","afterLegend":"Доп. часы / Globex","openingLegend":"Открытие основной","extendedLegend":"Доп. сессия","closedLegend":"Закрыто","calendarTitle":"Календарь рынков","calendarDesc":"Нажми день — расписание и статусы пересчитаются.","prevMonth":"Предыдущий месяц","nextMonth":"Следующий месяц","pickMonth":"Выбрать месяц","dotClose":"закрытия","dotEarly":"сокращённый день","dotExtra":"доп. сессия","dotCheck":"требует проверки","axis":"БИРЖА / СЕССИЯ","nowTooltip":"Сейчас: {time}","coreCaption":"Осн. {time}","usCaption":"Акции США {time}","closedTrack":"Закрыто","unknownTrack":"Часы уточняются","pendingTitle":"Календарь/время требует подтверждения","coreTooltip":"Основная сессия","cashTooltip":"Акции США активны","openTooltip":"Открытие основной сессии","reopenTooltip":"Возобновление торгов","provisional":"предварительно","holidayTitle":"Праздники / изменения выбранной даты","closedStatus":"Закрыта","unknownStatus":"Часы не утверждены","specialStatus":"Особая сессия","earlyStatus":"Короткий день","normalTitle":"Особенности дня","normalDesc":"Подтверждённых отклонений от стандартного расписания для выбранных рынков не найдено.","nseWarning":"⚠ Календарь NSE India на 2027 не опубликован официально; предварительные праздники отмечены, но другие закрытия возможны.","moexWarning":"⚠ MOEX: расписание дополнительных сессий в выходные 2027 года требует обновления.","opensTitle":"Открытие основных сессий","dstWarning":"В этот день часы переводятся: календарный день содержит {hours} часа. Шкала показывает местные часы.","printClosed":"Закрыты","printEarly":"Короткий день","printSpecial":"Особая сессия","printUnknown":"Требует проверки","holidayStatus":"Праздник / изменение графика"},"en":{"eyebrow":"MARKET CLOCK / GLOBAL EXCHANGES","pageTitle":"When markets open","intro":"15 market timelines and a holiday calendar through <strong>31 December 2027</strong>. Your browser’s time zone and language are used automatically. Works offline.","zoneLabel":"Timeline time zone","langLabel":"Interface language","autoZone":"Automatic (browser: {value})","autoLang":"Automatic (browser: {value})","zoneCaption":"Timeline time: {value} · {offset}","print":"Print / PDF","copy":"Copy link to date","copied":"Copied ✓","chartTitle":"Market sessions timeline","chartDesc":"Bright bars: main session. Muted bars: extended hours / Globex. White marker: main opening. Yellow line: now.","prevDay":"Previous day","nextDay":"Next day","today":"Today","filtersLabel":"Market groups","all":"All markets","asia":"Asia / Australia","europe":"Europe","us":"USA","dateHint":"Choose a date or month →","datePicker":"Choose date","openStat":"trading on this date","closedStat":"closed","specialStat":"special hours / check","jumpLabel":"Quick jump to time","jumpHint":"Timeline 00–24 · scroll horizontally →","now":"Now","chartAria":"Daily market-session timeline in the selected time zone","coreLegend":"Main session","afterLegend":"Extended hours / Globex","openingLegend":"Main session opens","extendedLegend":"Extra session","closedLegend":"Closed","calendarTitle":"Market calendar","calendarDesc":"Select a day to update sessions and their status.","prevMonth":"Previous month","nextMonth":"Next month","pickMonth":"Select month","dotClose":"market closures","dotEarly":"early close","dotExtra":"extra session","dotCheck":"needs verification","axis":"EXCHANGE / SESSION","nowTooltip":"Now: {time}","coreCaption":"Main {time}","usCaption":"US cash {time}","closedTrack":"Closed","unknownTrack":"Hours to confirm","pendingTitle":"Holiday calendar / hours need confirmation","coreTooltip":"Main session","cashTooltip":"US cash market active","openTooltip":"Main session opens","reopenTooltip":"Trading resumes","provisional":"provisional","holidayTitle":"Holidays / changes on selected date","closedStatus":"Closed","unknownStatus":"Hours unconfirmed","specialStatus":"Special session","earlyStatus":"Early close","normalTitle":"Day notes","normalDesc":"No confirmed deviations from the standard schedule were found for the selected markets.","nseWarning":"⚠ NSE India has not published its final 2027 calendar; provisional holidays are marked, but further closures are possible.","moexWarning":"⚠ MOEX: the 2027 schedule of additional weekend sessions has not been published.","opensTitle":"Main session openings","dstWarning":"Clocks change on this day: the calendar day contains {hours} hours. Timeline labels follow local clock time.","printClosed":"Closed","printEarly":"Early close","printSpecial":"Special session","printUnknown":"To verify","holidayStatus":"Holiday / schedule change"},"es":{"eyebrow":"RELOJ DE MERCADOS / BOLSAS MUNDIALES","pageTitle":"Cuándo abren los mercados","intro":"15 líneas de mercados y un calendario de festivos hasta el <strong>31 de diciembre de 2027</strong>. Detecta automáticamente el idioma y la zona horaria del navegador. Funciona sin conexión.","zoneLabel":"Zona horaria del gráfico","langLabel":"Idioma de la interfaz","autoZone":"Automática (navegador: {value})","autoLang":"Automático (navegador: {value})","zoneCaption":"Hora del gráfico: {value} · {offset}","print":"Imprimir / PDF","copy":"Copiar enlace a la fecha","copied":"Copiado ✓","chartTitle":"Horario de sesiones bursátiles","chartDesc":"Barras brillantes: sesión principal. Barras tenues: horario ampliado / Globex. Marca blanca: apertura principal. Línea amarilla: hora actual.","prevDay":"Día anterior","nextDay":"Día siguiente","today":"Hoy","filtersLabel":"Grupos de mercados","all":"Todos los mercados","asia":"Asia / Australia","europe":"Europa","us":"EE. UU.","dateHint":"Elige una fecha o mes →","datePicker":"Elegir fecha","openStat":"abiertos en esta fecha","closedStat":"cerrados","specialStat":"horario especial / confirmar","jumpLabel":"Ir rápidamente a una hora","jumpHint":"Franja 00–24 · desliza horizontalmente →","now":"Ahora","chartAria":"Cronología diaria de sesiones en la zona horaria seleccionada","coreLegend":"Sesión principal","afterLegend":"Horario ampliado / Globex","openingLegend":"Apertura principal","extendedLegend":"Sesión adicional","closedLegend":"Cerrado","calendarTitle":"Calendario bursátil","calendarDesc":"Selecciona un día para actualizar las sesiones y su estado.","prevMonth":"Mes anterior","nextMonth":"Mes siguiente","pickMonth":"Seleccionar mes","dotClose":"cierres de mercado","dotEarly":"cierre anticipado","dotExtra":"sesión adicional","dotCheck":"pendiente de confirmar","axis":"BOLSA / SESIÓN","nowTooltip":"Ahora: {time}","coreCaption":"Ppal. {time}","usCaption":"Contado EE. UU. {time}","closedTrack":"Cerrado","unknownTrack":"Horario por confirmar","pendingTitle":"Calendario festivo / horario pendiente de confirmar","coreTooltip":"Sesión principal","cashTooltip":"Mercado al contado de EE. UU. activo","openTooltip":"Apertura de sesión principal","reopenTooltip":"Se reanudan las operaciones","provisional":"provisional","holidayTitle":"Festivos / cambios de la fecha seleccionada","closedStatus":"Cerrado","unknownStatus":"Horario sin confirmar","specialStatus":"Sesión especial","earlyStatus":"Cierre anticipado","normalTitle":"Notas del día","normalDesc":"No se han identificado cambios confirmados respecto al horario habitual de los mercados seleccionados.","nseWarning":"⚠ NSE India no ha publicado el calendario definitivo de 2027; se indican los festivos provisionales, pero puede haber más cierres.","moexWarning":"⚠ MOEX: aún no se ha publicado el calendario de sesiones adicionales de fin de semana de 2027.","opensTitle":"Aperturas de las sesiones principales","dstWarning":"Este día cambia la hora: el día civil tiene {hours} horas. El gráfico muestra la hora local.","printClosed":"Cerrados","printEarly":"Cierre anticipado","printSpecial":"Sesión especial","printUnknown":"Por confirmar","holidayStatus":"Festivo / cambio de horario"}};
+const MARKET_COPY={"asx":{"en":["ASX / Australia","S&P/ASX 200 · stocks"],"es":["ASX / Australia","S&P/ASX 200 · acciones"]},"krx":{"en":["KRX / South Korea","KOSPI / KOSDAQ · stocks"],"es":["KRX / Corea del Sur","KOSPI / KOSDAQ · acciones"]},"jpx":{"en":["JPX / Tokyo","Nikkei / TOPIX · stocks"],"es":["JPX / Tokio","Nikkei / TOPIX · acciones"]},"sgx":{"en":["SGX / Singapore","Straits Times · stocks"],"es":["SGX / Singapur","Straits Times · acciones"]},"twse":{"en":["TWSE / Taiwan","TAIEX · stocks"],"es":["TWSE / Taiwán","TAIEX · acciones"]},"hkex":{"en":["HKEX / Hong Kong","Hang Seng · stocks"],"es":["HKEX / Hong Kong","Hang Seng · acciones"]},"sse":{"en":["SSE / China","Shanghai / Shenzhen · stocks"],"es":["SSE / China","Shanghái / Shenzhen · acciones"]},"nse":{"en":["NSE / India","Nifty 50 · stocks"],"es":["NSE / India","Nifty 50 · acciones"]},"moex":{"en":["MOEX / stocks","Moscow Exchange · equities"],"es":["MOEX / acciones","Bolsa de Moscú · acciones"]},"moexf":{"en":["MOEX / futures","Moscow Exchange · derivatives"],"es":["MOEX / futuros","Bolsa de Moscú · derivados"]},"xetra":{"en":["Xetra / Frankfurt","DAX · stocks"],"es":["Xetra / Fráncfort","DAX · acciones"]},"euronext":{"en":["Euronext / Paris","CAC 40 · stocks"],"es":["Euronext / París","CAC 40 · acciones"]},"lse":{"en":["LSE / London","FTSE 100 · stocks"],"es":["LSE / Londres","FTSE 100 · acciones"]},"nyse":{"en":["NYSE / Nasdaq","S&P 500 / Nasdaq · stocks"],"es":["NYSE / Nasdaq","S&P 500 / Nasdaq · acciones"]},"cme":{"en":["CME / ES, NQ","ES, NQ, MES, MNQ · Globex"],"es":["CME / ES, NQ","ES, NQ, MES, MNQ · Globex"]}};
+const ZONE_COPY={"Europe/Madrid":{"en":"Madrid / Spain","es":"Madrid / España"},"Europe/London":{"en":"London","es":"Londres"},"Europe/Paris":{"en":"Paris / Berlin","es":"París / Berlín"},"Europe/Moscow":{"en":"Moscow","es":"Moscú"},"America/New_York":{"en":"New York","es":"Nueva York"},"America/Chicago":{"en":"Chicago (CME)","es":"Chicago (CME)"},"Asia/Tokyo":{"en":"Tokyo","es":"Tokio"},"Asia/Seoul":{"en":"Seoul","es":"Seúl"},"Asia/Hong_Kong":{"en":"Hong Kong","es":"Hong Kong"},"Asia/Singapore":{"en":"Singapore","es":"Singapur"},"Asia/Kolkata":{"en":"Mumbai","es":"Bombay"},"Asia/Shanghai":{"en":"Shanghai","es":"Shanghái"},"Australia/Sydney":{"en":"Sydney","es":"Sídney"},"UTC":{"en":"UTC","es":"UTC"}};
+const REASONS_I18N={"День благодарности труду · Токио":{"en":"Labor Thanksgiving Day · Tokyo","es":"Día de Acción de Gracias por el Trabajo · Tokio"},"Гуру Нанак Джаянти":{"en":"Guru Nanak Jayanti","es":"Guru Nanak Jayanti"},"Thanksgiving · фондовый рынок США":{"en":"Thanksgiving · US stock market","es":"Acción de Gracias · bolsa estadounidense"},"Thanksgiving: перерыв ES/NQ в 12:00–17:00 CT":{"en":"Thanksgiving: ES/NQ break 12:00–17:00 CT","es":"Acción de Gracias: pausa de ES/NQ de 12:00 a 17:00 CT"},"После Thanksgiving: закрытие акций в 13:00 ET":{"en":"Day after Thanksgiving: stocks close at 13:00 ET","es":"Después de Acción de Gracias: las acciones cierran a las 13:00 ET"},"После Thanksgiving: ES/NQ до 12:15 CT":{"en":"Day after Thanksgiving: ES/NQ closes at 12:15 CT","es":"Después de Acción de Gracias: ES/NQ cierra a las 12:15 CT"},"Дополнительная выходная сессия MOEX, акции: 09:50–19:00 MSK (только допущенные инструменты)":{"en":"Extra MOEX weekend stock session: 09:50–19:00 MSK (eligible instruments only)","es":"Sesión adicional de acciones MOEX en fin de semana: 09:50–19:00 MSK (solo instrumentos habilitados)"},"Дополнительная выходная сессия MOEX, фьючерсы: 10:00–19:00 MSK (только допущенные инструменты)":{"en":"Extra MOEX weekend futures session: 10:00–19:00 MSK (eligible instruments only)","es":"Sesión adicional de futuros MOEX en fin de semana: 10:00–19:00 MSK (solo instrumentos habilitados)"},"Xetra не торгуется в сочельник":{"en":"Xetra closed on Christmas Eve","es":"Xetra cierra en Nochebuena"},"ASX сокращённый день, до 14:10 Сидней":{"en":"ASX early close at 14:10 Sydney","es":"ASX cierra antes, a las 14:10 de Sídney"},"HKEX только утренняя сессия, аукцион закрытия отдельно":{"en":"HKEX morning session only; closing auction separate","es":"HKEX: solo sesión matutina; subasta de cierre aparte"},"SGX половина дня · 09:00–12:00":{"en":"SGX half-day · 09:00–12:00","es":"SGX media jornada · 09:00–12:00"},"Euronext Paris полдня; точный час окончания уточняется биржей":{"en":"Euronext Paris half-day; exact close to be confirmed","es":"Euronext París media jornada; cierre exacto pendiente de confirmación"},"LSE: закрытие с 12:30 по Лондону":{"en":"LSE closes at 12:30 London time","es":"LSE cierra a las 12:30 de Londres"},"NYSE / Nasdaq до 13:00 ET":{"en":"NYSE / Nasdaq close at 13:00 ET","es":"NYSE / Nasdaq cierran a las 13:00 ET"},"CME ES/NQ до 12:15 CT":{"en":"CME ES/NQ closes at 12:15 CT","es":"CME ES/NQ cierra a las 12:15 CT"},"Рождество / День Конституции Тайваня":{"en":"Christmas / Taiwan Constitution Day","es":"Navidad / Día de la Constitución de Taiwán"},"Перенесённый выходной Boxing Day / Рождество":{"en":"Observed Boxing Day / Christmas holiday","es":"Festivo trasladado del Boxing Day / Navidad"},"Предновогодний выходной биржи":{"en":"Exchange closed ahead of New Year","es":"Bolsa cerrada antes de Año Nuevo"},"ASX до 14:10 Сидней":{"en":"ASX closes at 14:10 Sydney time","es":"ASX cierra a las 14:10 de Sídney"},"HKEX предновогодняя полусессия":{"en":"HKEX half-day before New Year","es":"HKEX media jornada antes de Año Nuevo"},"SGX половина дня":{"en":"SGX half-day","es":"SGX media jornada"},"Euronext Paris полдня; точное время завершения требует подтверждения":{"en":"Euronext Paris half-day; exact close needs confirmation","es":"Euronext París media jornada; cierre exacto por confirmar"},"LSE: торги до 12:30 по Лондону":{"en":"LSE trading until 12:30 London time","es":"LSE opera hasta las 12:30 de Londres"},"CME ES/NQ обычное завершение в 16:00 CT, вечернего возобновления нет":{"en":"CME ES/NQ closes at 16:00 CT, no evening reopening","es":"CME ES/NQ cierra a las 16:00 CT, sin reapertura nocturna"},"Новый год":{"en":"New Year’s Day","es":"Año Nuevo"},"NSE: биржа пока не опубликовала окончательный календарь 2027; новогодняя сессия не подтверждена":{"en":"NSE has not published its final 2027 calendar; New Year session unconfirmed","es":"NSE aún no ha publicado el calendario definitivo de 2027; sesión de Año Nuevo por confirmar"},"Рождество: MOEX закрыта":{"en":"Orthodox Christmas: MOEX closed","es":"Navidad ortodoxa: MOEX cerrada"},"MOEX торгуется в официальный российский праздник; отдельные расчётные ограничения":{"en":"MOEX trading on a Russian public holiday; some settlement restrictions","es":"MOEX opera durante un festivo ruso; algunas restricciones de liquidación"},"Первый день года: начало KRX в 10:00 вместо 09:00 KST":{"en":"First session of the year: KRX opens at 10:00 instead of 09:00 KST","es":"Primera sesión del año: KRX abre a las 10:00 en vez de las 09:00 KST"},"Национальный праздник Японии / выходной JPX (акции)":{"en":"Japanese public holiday / JPX stock market closed","es":"Festivo nacional japonés / JPX cerrada (acciones)"},"ASX: праздничный выходной":{"en":"ASX public holiday closure","es":"ASX cerrada por festivo"},"ASX закрывается в 14:10 Sydney":{"en":"ASX closes at 14:10 Sydney time","es":"ASX cierra a las 14:10 de Sídney"},"HKEX: праздничное закрытие":{"en":"HKEX closed for holiday","es":"HKEX cerrada por festivo"},"HKEX: праздничная полусессия, утро до 12:00 HKT":{"en":"HKEX holiday half-day, morning session until 12:00 HKT","es":"HKEX media jornada festiva, sesión matutina hasta las 12:00 HKT"},"TWSE: официальный праздничный / расчётный перерыв":{"en":"TWSE official holiday / settlement break","es":"TWSE: festivo oficial / pausa de liquidación"},"Праздник Южной Кореи / KRX (ожидается)":{"en":"South Korean public holiday / KRX (provisional)","es":"Festivo en Corea del Sur / KRX (provisional)"},"Государственный праздник Сингапура · SGX":{"en":"Singapore public holiday · SGX","es":"Festivo nacional de Singapur · SGX"},"Ожидаемая полусессия SGX (перед Новым годом / Рождеством / Lunar NY)":{"en":"Provisional SGX half-day (New Year / Christmas / Lunar New Year eve)","es":"Media jornada provisional en SGX (vísperas de Año Nuevo / Navidad / Año Nuevo lunar)"},"Китай: правительственные каникулы (официальное уведомление SSE ожидается)":{"en":"China public holidays (SSE official notice pending)","es":"Festivos nacionales en China (pendiente de aviso oficial de SSE)"},"Китай: национальный праздник (биржевой календарь предварительный)":{"en":"China public holiday (exchange calendar provisional)","es":"Festivo nacional en China (calendario bursátil provisional)"},"NSE: ожидаемый праздничный выходной — календарь 2027 ещё не утверждён":{"en":"NSE: expected holiday — 2027 calendar not yet finalized","es":"NSE: festivo previsto; el calendario de 2027 aún no es definitivo"},"Xetra: нерабочий торговый день":{"en":"Xetra: non-trading holiday","es":"Xetra: festivo sin negociación"},"Последняя сессия Xetra 2027: возможно сокращение, точные часы ожидают биржевого уведомления":{"en":"Last Xetra session of 2027: possible early close, exact times pending exchange notice","es":"Última sesión de Xetra de 2027: posible cierre anticipado, horario pendiente de aviso bursátil"},"Euronext Paris: Good Friday / Easter Monday":{"en":"Euronext Paris: Good Friday / Easter Monday","es":"Euronext París: Viernes Santo / Lunes de Pascua"},"Euronext Paris: полусессия; точные часы пока не объявлены":{"en":"Euronext Paris half-day; exact hours not yet announced","es":"Euronext París media jornada; horario exacto aún no anunciado"},"LSE: британский банковский выходной":{"en":"LSE: UK bank holiday","es":"LSE: festivo bancario británico"},"LSE: торги до 12:30 London":{"en":"LSE trading until 12:30 London time","es":"LSE negocia hasta las 12:30 de Londres"},"NYSE/Nasdaq: официальный праздничный выходной":{"en":"NYSE/Nasdaq: official market holiday","es":"NYSE/Nasdaq: festivo bursátil oficial"},"После Thanksgiving: до 13:00 ET":{"en":"Day after Thanksgiving: closes at 13:00 ET","es":"Después de Acción de Gracias: cierre a las 13:00 ET"},"CME ES/NQ: ожидается остановка 12:00–17:00 CT; проверь официальный праздничный регламент":{"en":"CME ES/NQ: expected pause 12:00–17:00 CT; verify official holiday hours","es":"CME ES/NQ: pausa prevista de 12:00 a 17:00 CT; comprueba el horario festivo oficial"},"CME: Good Friday — ожидаемое закрытие":{"en":"CME: expected Good Friday closure","es":"CME: cierre previsto por Viernes Santo"},"CME ES/NQ: праздничные часы 2027 необходимо подтвердить по биржевому уведомлению; обычные блоки скрыты":{"en":"CME ES/NQ: 2027 holiday hours need exchange confirmation; regular bars hidden","es":"CME ES/NQ: horario festivo de 2027 pendiente de confirmación; se ocultan las barras normales"},"Globex: выходная часть недели":{"en":"Globex: weekend session","es":"Globex: sesión de fin de semana"},"Даты дополнительных торгов MOEX на выходных 2027 ещё не опубликованы":{"en":"MOEX 2027 additional weekend sessions not yet published","es":"Sesiones adicionales MOEX de fines de semana de 2027 aún no publicadas"},"Обычный выходной":{"en":"Regular weekend","es":"Fin de semana habitual"},"Базовая сессия Globex; перерыв 16–17 CT":{"en":"Regular Globex trading; break 16:00–17:00 CT","es":"Sesión habitual de Globex; pausa de 16:00 a 17:00 CT"},"Обычный торговый день":{"en":"Regular trading day","es":"Día bursátil habitual"}};
+const FEATURED_I18N={"2026-11-26":{"en":["Thanksgiving 2026","NYSE closed; CME on holiday hours"],"es":["Acción de Gracias 2026","NYSE cerrada; CME con horario festivo"]},"2026-12-24":{"en":["Christmas Eve","Many exchanges close early"],"es":["Nochebuena","Muchas bolsas cierran antes"]},"2027-01-04":{"en":["First week of the year","MOEX trades; KRX opens late"],"es":["Primera semana del año","MOEX opera; KRX abre más tarde"]},"2027-02-05":{"en":["Lunar New Year","Some Asian markets close early or start holidays"],"es":["Año Nuevo lunar","Algunos mercados asiáticos cierran antes o empiezan festivos"]},"2027-03-26":{"en":["Good Friday","Most European exchanges and NYSE are closed"],"es":["Viernes Santo","La mayoría de bolsas europeas y NYSE están cerradas"]},"2027-05-03":{"en":["May holidays","JPX and some Asian markets closed; MOEX trades"],"es":["Festivos de mayo","JPX y algunos mercados asiáticos cierran; MOEX opera"]},"2027-06-18":{"en":["Juneteenth in the US","NYSE closed; CME hours to confirm"],"es":["Juneteenth en EE. UU.","NYSE cerrada; horario de CME por confirmar"]},"2027-09-15":{"en":["Asian holidays","China, Taiwan and Korea have holiday closures"],"es":["Festivos asiáticos","China, Taiwán y Corea tienen cierres festivos"]},"2027-11-25":{"en":["Thanksgiving 2027","NYSE closed; CME to confirm"],"es":["Acción de Gracias 2027","NYSE cerrada; CME por confirmar"]},"2027-11-26":{"en":["Short US session","NYSE closes at 13:00 ET"],"es":["Sesión corta en EE. UU.","NYSE cierra a las 13:00 ET"]},"2027-12-24":{"en":["Christmas 2027","NYSE closed; some European markets shorten hours"],"es":["Navidad 2027","NYSE cerrada; algunas bolsas europeas reducen horario"]},"2027-12-31":{"en":["Last day of the year","JPX/Xetra closed; some markets half-day"],"es":["Último día del año","JPX/Xetra cerradas; otros mercados a media jornada"]}};
+const LOCALE_TAGS={ru:'ru-RU',en:'en-GB',es:'es-ES'};
+function deviceLanguage(){let choices=(navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'en']);for(const item of choices){const code=String(item).toLowerCase().split('-')[0];if(['ru','en','es'].includes(code))return code}return 'en'}
+let language='en',languagePreference='auto',browserLanguage=deviceLanguage(),tzPreference='auto';
+function t(key,vars={}){let str=I18N[language]?.[key]??I18N.en[key]??key;for(const [k,v] of Object.entries(vars))str=str.replaceAll('{'+k+'}',String(v));return str}
+function mName(m){return MARKET_COPY[m.id]?.[language]?.[0]||m.name}
+function mSub(m){return MARKET_COPY[m.id]?.[language]?.[1]||m.sub}
+function reasonText(reason){return REASONS_I18N[reason]?.[language]||reason}
+function formatLocale(){return LOCALE_TAGS[language]||'en-GB'}
+function featureText(date,field,ru){return FEATURED_I18N[date]?.[language]?.[field]||ru}
+function displayLanguage(code){return ({ru:'Русский',en:'English',es:'Español'})[code]||code}
+function setLabel(selector,key){const node=document.querySelector(selector);if(node)node.textContent=t(key)}
+function replaceText(selector,key){const node=document.querySelector(selector);if(!node)return;const textNode=[...node.childNodes].find(n=>n.nodeType===Node.TEXT_NODE&&n.textContent.trim());if(textNode)textNode.textContent=' '+t(key);else node.appendChild(document.createTextNode(t(key)))}
+function renderStatic(){
+ document.documentElement.lang=language;document.title='Market Clock · '+t('pageTitle')+' · 2026–2027';
+ setLabel('.eyebrow','eyebrow');setLabel('.top h1','pageTitle');document.querySelector('.top .intro').innerHTML=t('intro');
+ setLabel('label[for="timezoneSelect"]','zoneLabel');setLabel('label[for="languageSelect"]','langLabel');
+ setLabel('.header-actions .ctl:first-child','print');setLabel('#copyLink','copy');
+ setLabel('.maincol .ph h2','chartTitle');setLabel('.maincol .ph p','chartDesc');
+ document.getElementById('prev').title=t('prevDay');document.getElementById('next').title=t('nextDay');setLabel('#today','today');
+ document.querySelector('.choose').setAttribute('aria-label',t('filtersLabel'));
+ for(const [filter,key] of Object.entries({all:'all',asia:'asia',ru:'moex',europe:'europe',us:'us'})){const el=document.querySelector('[data-filter="'+filter+'"]');if(el)el.textContent=key==='moex'?'MOEX':t(key)}
+ const dateHint=document.querySelector('.datebar span');if(dateHint){const text=[...dateHint.childNodes].find(n=>n.nodeType===Node.TEXT_NODE);if(text)text.textContent=t('dateHint')+' '}
+ document.getElementById('dateInput').setAttribute('aria-label',t('datePicker'));
+ const stats=document.querySelectorAll('.stats .stat small');['openStat','closedStat','specialStat'].forEach((key,i)=>{if(stats[i])stats[i].textContent=t(key)});
+ const nav=document.querySelector('.timeline-nav');nav.setAttribute('aria-label',t('jumpLabel'));nav.querySelector('.nav-hint').textContent=t('jumpHint');
+ for(const [jump,key] of Object.entries({asia:'asia',moex:'moex',europe:'europe',us:'us',now:'now'})){const el=document.querySelector('[data-jump="'+jump+'"]');if(el)el.textContent=key==='moex'?'MOEX':t(key)}
+ document.getElementById('timeline').setAttribute('aria-label',t('chartAria'));
+ const legends=document.querySelectorAll('.legend .key');['coreLegend','afterLegend','openingLegend','asia','moex','europe','us','extendedLegend','closedLegend'].forEach((key,i)=>{if(!legends[i])return;const swatch=legends[i].querySelector('.swatch');legends[i].textContent='';legends[i].append(swatch,document.createTextNode(' '+(key==='moex'?'MOEX':t(key))))});
+ setLabel('.cal-head h2','calendarTitle');setLabel('.cal-head p','calendarDesc');
+ document.getElementById('monthPrev').setAttribute('aria-label',t('prevMonth'));document.getElementById('monthNext').setAttribute('aria-label',t('nextMonth'));document.getElementById('monthSelect').setAttribute('aria-label',t('pickMonth'));
+ const calHelp=document.querySelector('.cal-help');calHelp.innerHTML='<span class="inline-dot" style="background:var(--red)"></span> '+t('dotClose')+' &nbsp; <span class="inline-dot" style="background:var(--amber)"></span> '+t('dotEarly')+' &nbsp; <span class="inline-dot" style="background:var(--teal)"></span> '+t('dotExtra')+' &nbsp; <span class="inline-dot" style="background:var(--violet)"></span> '+t('dotCheck');
+ const tzSel=document.getElementById('timezoneSelect');tzSel.innerHTML='<option value="auto">'+htmlEscape(t('autoZone',{value:userZoneDetected}))+'</option>'+ZONES.map(([name])=>'<option value="'+name+'">'+htmlEscape(displayTZ(name))+' ('+name+')</option>').join('');tzSel.value=tzPreference;
+ const langSel=document.getElementById('languageSelect');langSel.innerHTML='<option value="auto">'+htmlEscape(t('autoLang',{value:displayLanguage(browserLanguage)}))+'</option><option value="ru">Русский</option><option value="en">English</option><option value="es">Español</option>';langSel.value=languagePreference;
+ const monthSelect=document.getElementById('monthSelect');for(const option of monthSelect.options){const [yy,mo]=option.value.split('-').map(Number);option.textContent=monthName(yy,mo)+' '+yy}
+ document.getElementById('timezoneCaption').textContent=t('zoneCaption',{value:displayTZ(zone),offset:zoneOffsetString(Date.now(),zone)});
+}
+function chooseLanguage(pref,save=true){languagePreference=pref;language=pref==='auto'?browserLanguage:pref;if(!I18N[language])language='en';if(save){try{localStorage.setItem('market-clock-lang',pref)}catch{}}renderStatic();renderChart();renderMonths();renderKeyDates();updateClock()}
+function monthName(y,m){return new Intl.DateTimeFormat(formatLocale(),{month:'long',timeZone:'UTC'}).format(new Date(Date.UTC(y,m-1,15))).replace(/^./,c=>c.toLocaleUpperCase(formatLocale()))}
+function weekdayNames(){const monday=Date.UTC(2027,0,4);return Array.from({length:7},(_,i)=>new Intl.DateTimeFormat(formatLocale(),{weekday:'short',timeZone:'UTC'}).format(new Date(monday+i*86400000)).replace(/[.]$/,''))}
 // ---- Timezone / calendar calculation ----
 const pad=n=>String(n).padStart(2,'0');
 const minOf=s=>{const [h,m]=s.split(':').map(Number);return h*60+m;};
@@ -266,35 +392,79 @@ function zoneParts(instant,tz){const p=formatter(tz,'parts').formatToParts(new D
 function zoneISO(t,tz){const p=zoneParts(t,tz);return `${p.year}-${pad(p.month)}-${pad(p.day)}`}
 // Convert local exchange wall time to an absolute instant; repeated offset iteration handles 2027 DST changes.
 function localInstant(localISO,clock,tz){const [year,month,day]=localISO.split('-').map(Number);const minutes=minOf(clock);const base=Date.UTC(year,month-1,day,Math.floor(minutes/60),minutes%60);let stamp=base;for(let i=0;i<4;i++){const p=zoneParts(stamp,tz);const projected=Date.UTC(p.year,p.month-1,p.day,p.hour,p.minute,p.second);const next=stamp+(base-projected);if(Math.abs(next-stamp)<500)return next;stamp=next}return stamp}
-function dateDisplay(iso,tz){return new Intl.DateTimeFormat('ru-RU',{day:'numeric',month:'long',year:'numeric',weekday:'short',timeZone:tz}).format(localInstant(iso,'12:00',tz))}
+function dateDisplay(iso,tz){return new Intl.DateTimeFormat(formatLocale(),{day:'numeric',month:'long',year:'numeric',weekday:'short',timeZone:tz}).format(localInstant(iso,'12:00',tz))}
 function zoneOffsetString(t,tz){const p=zoneParts(t,tz);const utc=Date.UTC(p.year,p.month-1,p.day,p.hour,p.minute,p.second);const mm=Math.round((utc-t)/60000);return 'UTC'+(mm<0?'−':'+')+pad(Math.floor(Math.abs(mm)/60))+':'+pad(Math.abs(mm)%60)}
-function getStatus(m,date){const e=EVENTS[date]?.[m.id];if(e)return {...e,segments:e.segments===null?m.segments:e.segments};if(isWeekend(date)){
+function getStatus(m,date){const e=EVENTS[date]?.[m.id]||(m.id==='moexf'?EVENTS[date]?.moex:undefined);if(e)return {...e,segments:e.segments===null?m.segments:e.segments};if(isWeekend(date)){
   if(m.id==='cme')return {kind:'normal',reason:'Globex: выходная часть недели',segments:cmeSegments(date),tentative:false};
-  if(m.id==='moex'&&date>='2027-01-01')return {kind:'unknown',reason:'Даты дополнительных торгов MOEX на выходных 2027 ещё не опубликованы',segments:[],tentative:true,weekendTBD:true};
+  if((m.id==='moex'||m.id==='moexf')&&date>='2027-01-01')return {kind:'unknown',reason:'Даты дополнительных торгов MOEX на выходных 2027 ещё не опубликованы',segments:[],tentative:true,weekendTBD:true};
   return {kind:'closed',reason:'Обычный выходной',segments:[],tentative:false};
  }
  if(m.id==='cme')return {kind:'normal',reason:'Базовая сессия Globex; перерыв 16–17 CT',segments:cmeSegments(date),tentative:false};
  return {kind:'normal',reason:'Обычный торговый день',segments:m.segments,tentative:false};
 }
 function cmeSegments(date){const wd=new Date(date+'T12:00:00Z').getUTCDay();return wd===0?[['17:00','24:00']]:wd===6?[]:wd===5?[['00:00','16:00']]:[['00:00','16:00'],['17:00','24:00']]}
-function sessionSlices(m,date,zone){
+// The highlighted core is based on local exchange times, not the beginning of a continuation slice at midnight.
+function mainWindows(m,date,status){
+ if(status.kind==='unknown'||status.kind==='closed')return [];
+ if(m.id==='moex'||m.id==='moexf'){
+  if(isWeekend(date))return []; // Weekend session is supplementary, not regular core.
+  return m.id==='moex'?[['09:50','19:00']]:[['10:00','19:00']];
+ }
+ if(m.id==='cme'){
+  const cash=getStatus(MARKETS.find(x=>x.id==='nyse'),date);
+  if(cash.kind==='closed'||cash.kind==='unknown'||isWeekend(date))return [];
+  const closeET=cash.segments?.[0]?.[1]||'16:00';
+  const endCT=labelM(Math.max(8*60+30,Math.min(15*60,minOf(closeET)-60)));
+  return [['08:30',endCT]]; // Bright window = US cash stock market active, not whole Globex.
+ }
+ return status.segments;
+}
+function sessionSlices(m,date,zone,mainOnly=false){
  const screenStart=localInstant(date,'00:00',zone),screenEnd=localInstant(shiftDate(date,1),'00:00',zone),slices=[];
  for(let offset=-2;offset<=2;offset++){
   const localDate=shiftDate(date,offset),status=getStatus(m,localDate);
   if(status.kind==='unknown'||status.kind==='closed')continue;
-  for(const [from,to] of status.segments){
-   const start=localInstant(localDate,from,m.tz),end=localInstant(localDate,to,m.tz);
-   if(end<=screenStart||start>=screenEnd)continue;
-   const a=Math.max(start,screenStart),b=Math.min(end,screenEnd);
-   if(b<=a)continue;
-   let pa=zoneParts(a,zone),pb=zoneParts(b,zone);
-   let left=(pa.hour*60+pa.minute)/1440*100;
-   let right=b===screenEnd?100:(pb.hour*60+pb.minute)/1440*100;
-   if(right<=left && (b-a)>0)right=Math.min(100,left+(b-a)/86400000*100);
-   slices.push({a,b,left,right,reason:status.reason,kind:status.kind,tentative:status.tentative,exchangeDate:localDate});
+  const native=status.segments||[];
+  const windows=mainOnly?mainWindows(m,localDate,status):native;
+  for(let idx=0;idx<windows.length;idx++){
+   const [from,to]=windows[idx];
+   // Clip the core window to actual traded hours (covers holiday early closes).
+   for(const [marketFrom,marketTo] of native){
+    const fromM=Math.max(minOf(from),minOf(marketFrom)),toM=Math.min(minOf(to),minOf(marketTo));
+    if(toM<=fromM)continue;
+    const start=localInstant(localDate,labelM(fromM),m.tz),end=localInstant(localDate,labelM(toM),m.tz);
+    if(end<=screenStart||start>=screenEnd)continue;
+    const a=Math.max(start,screenStart),b=Math.min(end,screenEnd);
+    if(b<=a)continue;
+    const pa=zoneParts(a,zone),pb=zoneParts(b,zone);
+    const left=(pa.hour*60+pa.minute)/1440*100;
+    let right=b===screenEnd?100:(pb.hour*60+pb.minute)/1440*100;
+    if(right<=left && b>a)right=Math.min(100,left+(b-a)/86400000*100);
+    slices.push({a,b,left,right,reason:status.reason,kind:status.kind,tentative:status.tentative,exchangeDate:localDate,
+      isStart:a===start&&fromM===minOf(from),segmentIndex:idx});
+   }
   }
  }
  return slices.sort((a,b)=>a.a-b.a);
+}
+function openingTime(piece,tz){const p=zoneParts(piece.a,tz);return `${pad(p.hour)}:${pad(p.minute)}`}
+function jumpHour(kind){
+ if(kind==='now'){const p=zoneParts(Date.now(),zone);return p.hour+p.minute/60}
+ const id={asia:'krx',moex:'moexf',europe:'xetra',us:'nyse'}[kind];
+ const m=MARKETS.find(x=>x.id===id);
+ const opens=sessionSlices(m,selected,zone,true).find(x=>x.isStart&&x.segmentIndex===0);
+ if(opens){const p=zoneParts(opens.a,zone);return p.hour+p.minute/60}
+ return ({asia:1,moex:8,europe:9,us:15.5})[kind];
+}
+function scrollToHour(kind){
+ const viewport=document.getElementById('timelineViewport');
+ const track=document.querySelector('#timeline .track');if(!track)return;
+ const hour=jumpHour(kind);
+ // Keep frozen labels visible; the x coordinate is relative to the scrolled chart content.
+ const plotStart=track.offsetLeft,plotWidth=track.clientWidth;
+ const frozen=document.querySelector('.mname')?.offsetWidth||190;
+ const destination=Math.max(0,plotStart+hour/24*plotWidth-frozen-80);
+ viewport.scrollTo({left:Math.min(viewport.scrollWidth-viewport.clientWidth,destination),behavior:'smooth'});
 }
 let zone='Europe/Madrid',filter='all',selected='2026-11-23',monthAnchor='2026-11-01',userZoneDetected='Europe/Madrid';
 function localToday(){return zoneISO(Date.now(),zone)}
@@ -302,23 +472,37 @@ function isTodaySelected(){return selected===localToday()}
 function rows(){return MARKETS.filter(m=>filter==='all'||m.region===filter)}
 function selectedMonth(iso){return iso.slice(0,7)+'-01'}
 function monthMove(iso,num){const [y,m]=iso.split('-').map(Number);const d=new Date(Date.UTC(y,m-1+num,1));return d.toISOString().slice(0,10)}
-function displayTZ(tz){return ZONES.find(x=>x[0]===tz)?.[1]||tz}
-function tickMarkup(){let out='<div class="hours"><div class="axislabel">БИРЖА / СЕССИЯ</div><div class="axis">';for(let h=0;h<=24;h+=2){out+=`<span class="tick ${h===0?'first':h===24?'last':''}" style="left:${h/24*100}%">${pad(h)}:00</span>`}return out+'</div></div>'}
-function todayLine(){if(!isTodaySelected())return '';const p=zoneParts(Date.now(),zone),left=(p.hour*60+p.minute)/1440*100;return `<div class="now-line" style="left:${left}%" title="Сейчас: ${pad(p.hour)}:${pad(p.minute)}"></div>`}
+function displayTZ(tz){return ZONE_COPY[tz]?.[language]||ZONES.find(x=>x[0]===tz)?.[1]||tz.split('/').pop().replaceAll('_',' ')}
+function tickMarkup(){let out=`<div class="hours"><div class="axislabel">${htmlEscape(t('axis'))}</div><div class="axis">`;for(let h=0;h<=24;h+=2){out+=`<span class="tick ${h===0?'first':h===24?'last':''}" style="left:${h/24*100}%">${pad(h)}:00</span>`}return out+'</div></div>'}
+function todayLine(){if(!isTodaySelected())return '';const p=zoneParts(Date.now(),zone),left=(p.hour*60+p.minute)/1440*100;return `<div class="now-line" style="left:${left}%" title="${htmlEscape(t('nowTooltip',{time:pad(p.hour)+':'+pad(p.minute)}))}"></div>`}
 function renderChart(){
  const r=rows();let html=tickMarkup();let open=0,closed=0,special=0;
- for(const m of r){const sl=sessionSlices(m,selected,zone),localDate=zoneISO(localInstant(selected,'12:00',zone),m.tz),s=getStatus(m,localDate),isTBD=s.kind==='unknown',isClosed=!sl.length&&!isTBD;
+ for(const m of r){
+  const sl=sessionSlices(m,selected,zone),cores=sessionSlices(m,selected,zone,true),localDate=zoneISO(localInstant(selected,'12:00',zone),m.tz),s=getStatus(m,localDate),isTBD=s.kind==='unknown',isClosed=!sl.length&&!isTBD;
   if(sl.length)open++;else if(isClosed)closed++;
   if(isTBD||sl.some(v=>v.kind!=='normal'||v.tentative)||s.tentative||(!isWeekend(localDate)&&s.kind!=='normal'))special++;
   let track='';
-  if(sl.length){for(const piece of sl){const width=piece.right-piece.left;const mark=piece.kind==='special'?' special':'';const warn=piece.tentative?' tentative':'';
-   const start=zoneParts(piece.a,zone);const end=zoneParts(piece.b,zone);const ls=`${pad(start.hour)}:${pad(start.minute)}`;const le=piece.right>=99.99?'24:00':`${pad(end.hour)}:${pad(end.minute)}`;
-   track+=`<div class="bar ${m.region}${mark}${warn}" style="left:${piece.left}%;width:${Math.max(0.12,width)}%" title="${htmlEscape(m.name+' · '+ls+'–'+le+' · '+piece.reason+(piece.tentative?' (предварительно)':''))}">${width>7?`<span class="bar-title">${ls}</span>`:''}</div>`;
-  }}else if(isTBD){track=`<div class="closed-track unknown-track" title="${htmlEscape(s.reason)}">⚠ Часы уточняются</div>`}
-  else{track=`<div class="closed-track" title="${htmlEscape(s.reason)}">✕ &nbsp; Закрыто</div>`}
+  if(sl.length){
+   for(const piece of sl){
+    const width=piece.right-piece.left,mark=piece.kind==='special'?' special':'',warn=piece.tentative?' tentative':'';
+    const ls=openingTime(piece,zone),end=zoneParts(piece.b,zone),le=piece.right>=99.99?'24:00':`${pad(end.hour)}:${pad(end.minute)}`;
+    track+=`<div class="bar base ${m.region}${mark}${warn}" style="left:${piece.left}%;width:${Math.max(0.12,width)}%" title="${htmlEscape(mName(m)+' · '+ls+'–'+le+' · '+reasonText(piece.reason)+(piece.tentative?' ('+t('provisional')+')':''))}"></div>`;
+   }
+   for(const piece of cores){
+    const width=piece.right-piece.left,ls=openingTime(piece,zone),end=zoneParts(piece.b,zone),le=piece.right>=99.99?'24:00':`${pad(end.hour)}:${pad(end.minute)}`;
+    track+=`<div class="bar core ${m.region}${piece.tentative?' tentative':''}" style="left:${piece.left}%;width:${Math.max(0.12,width)}%" title="${htmlEscape((m.id==='cme'?t('cashTooltip'):t('coreTooltip'))+' · '+mName(m)+' · '+ls+'–'+le)}"></div>`;
+   }
+   for(const piece of cores.filter(x=>x.isStart)){
+    const ls=openingTime(piece,zone),label=piece.segmentIndex===0,edge=piece.left<7?' at-start':piece.left>93?' at-end':'';
+    track+=`<div class="${label?'main-open':'reopen'}${edge}" style="left:${piece.left}%" title="${htmlEscape((label?t('openTooltip'):t('reopenTooltip'))+': '+mName(m)+' · '+ls)}">${label?`<span class="open-time">${ls}</span>`:''}</div>`;
+   }
+  }else if(isTBD){track=`<div class="closed-track unknown-track" title="${htmlEscape(reasonText(s.reason))}">⚠ ${htmlEscape(t('unknownTrack'))}</div>`}
+  else{track=`<div class="closed-track" title="${htmlEscape(reasonText(s.reason))}">✕ &nbsp; ${htmlEscape(t('closedTrack'))}</div>`}
   track+=todayLine();
-  const warning=s.tentative||s.kind==='unknown'?'<span class="caution" title="Календарь/время требует подтверждения">◇</span>':'';
-  html+=`<div class="trow"><div class="mname"><span class="flag">${m.flag}</span><div class="mtext"><strong>${htmlEscape(m.name)} ${warning}</strong><small>${htmlEscape(m.sub)}</small></div></div><div class="track">${track}</div></div>`;
+  const warning=s.tentative||s.kind==='unknown'?`<span class="caution" title="${htmlEscape(t('pendingTitle'))}">◇</span>`:'';
+  const actualOpen=cores.find(x=>x.isStart&&x.segmentIndex===0);
+  const label=actualOpen?t(m.id==='cme'?'usCaption':'coreCaption',{time:openingTime(actualOpen,zone)}):mSub(m);
+  html+=`<div class="trow" data-market="${m.id}"><div class="mname" title="${htmlEscape(mName(m)+' · '+mSub(m))}"><span class="flag">${m.flag}</span><div class="mtext"><strong>${htmlEscape(mName(m))} ${warning}</strong><small class="${actualOpen?'core-caption':''}">${htmlEscape(label)}</small></div></div><div class="track">${track}</div></div>`;
  }
  document.getElementById('timeline').innerHTML=html;
  document.getElementById('openCount').textContent=open;
@@ -326,25 +510,27 @@ function renderChart(){
  document.getElementById('specialCount').textContent=special;
  const daylightMinutes=Math.round((localInstant(shiftDate(selected,1),'00:00',zone)-localInstant(selected,'00:00',zone))/60000);
  document.getElementById('selectedDate').textContent=dateDisplay(selected,zone)+' · '+displayTZ(zone)+' · '+zoneOffsetString(localInstant(selected,'12:00',zone),zone);
- document.getElementById('dstNotice').textContent=daylightMinutes===1440?'':`В этот день часы переводятся: календарный день содержит ${daylightMinutes/60} часа. Шкала показывает местные часы.`;
+ document.getElementById('dstNotice').textContent=daylightMinutes===1440?'':t('dstWarning',{hours:daylightMinutes/60});
  renderInfo(r);
+ const groups={closed:[],early:[],special:[],unknown:[]};for(const m of r){const d=zoneISO(localInstant(selected,'12:00',zone),m.tz),s=getStatus(m,d);if(groups[s.kind])groups[s.kind].push(mName(m).replace(' / ',' '));}
+ document.getElementById('printSummary').textContent=Object.entries(groups).filter(([,a])=>a.length).map(([kind,a])=>(t(({closed:'printClosed',early:'printEarly',special:'printSpecial',unknown:'printUnknown'})[kind])+': '+a.join(', '))).join('  •  ');
 }
 function renderInfo(r){
  const content=document.getElementById('dayInfo');let html='';const notable=r.map(m=>{const local=zoneISO(localInstant(selected,'12:00',zone),m.tz);return {m,local,s:getStatus(m,local)}}).filter(x=>x.s.kind!=='normal'||x.s.tentative);
- if(notable.length){html+='<h3>Праздники / изменения выбранной даты</h3>';for(const x of notable){const s=x.s,cls=s.kind==='closed'?'holiday':s.kind==='early'?'early':s.kind==='unknown'?'unknown':'';const descr=s.kind==='closed'?'Закрыта':s.kind==='unknown'?'Часы не утверждены':s.kind==='special'?'Особая сессия':'Короткий день';html+=`<div class="notice ${cls}"><span class="nicon">${s.kind==='closed'?'✕':s.kind==='unknown'?'⚠':'◷'}</span><div><strong>${x.m.flag} ${htmlEscape(x.m.name)}</strong> — ${descr}${s.tentative?' · предварительно':''}<small>${htmlEscape(s.reason)}</small></div></div>`;}}
- else html+='<h3>Особенности дня</h3><div class="notice">Подтверждённых отклонений от стандартного расписания для выбранных рынков не найдено.</div>';
- if(selected.startsWith('2027')&&r.some(m=>m.id==='nse'))html+='<div class="notice unknown">⚠ Календарь NSE India на 2027 не опубликован официально; предварительные праздники отмечены, но другие закрытия возможны.</div>';
- if(selected.startsWith('2027')&&isWeekend(selected)&&r.some(m=>m.id==='moex'))html+='<div class="notice unknown">⚠ MOEX: расписание дополнительных сессий в выходные 2027 года требует обновления.</div>';
- const earliest=[];for(const m of r){for(const x of sessionSlices(m,selected,zone)){if(x.left<99.9)earliest.push({m,x})}}
- if(earliest.length){earliest.sort((a,b)=>a.x.left-b.x.left);html+='<h3>Первые открытия и продолжения торгов</h3><div class="info-summary">'+earliest.slice(0,6).map(({m,x})=>{const p=zoneParts(x.a,zone);return `<span class="bubble"><b>${pad(p.hour)}:${pad(p.minute)}</b> · ${m.flag} ${htmlEscape(m.id.toUpperCase())}${x.a<=localInstant(selected,'00:00',zone)?' ↩':''}</span>`}).join('')+'</div>'}
+ if(notable.length){html+='<h3>'+htmlEscape(t('holidayTitle'))+'</h3>';for(const x of notable){const s=x.s,cls=s.kind==='closed'?'holiday':s.kind==='early'?'early':s.kind==='unknown'?'unknown':'';const descr=t(({closed:'closedStatus',unknown:'unknownStatus',special:'specialStatus',early:'earlyStatus'})[s.kind]||'specialStatus');html+=`<div class="notice ${cls}"><span class="nicon">${s.kind==='closed'?'✕':s.kind==='unknown'?'⚠':'◷'}</span><div><strong>${x.m.flag} ${htmlEscape(mName(x.m))}</strong> — ${descr}${s.tentative?' · '+t('provisional'):''}<small>${htmlEscape(reasonText(s.reason))}</small></div></div>`;}}
+ else html+='<h3>'+htmlEscape(t('normalTitle'))+'</h3><div class="notice">'+htmlEscape(t('normalDesc'))+'</div>';
+ if(selected.startsWith('2027')&&r.some(m=>m.id==='nse'))html+='<div class="notice unknown">'+htmlEscape(t('nseWarning'))+'</div>';
+ if(selected.startsWith('2027')&&isWeekend(selected)&&r.some(m=>m.id==='moex'))html+='<div class="notice unknown">'+htmlEscape(t('moexWarning'))+'</div>';
+ const earliest=[];for(const m of r){for(const x of sessionSlices(m,selected,zone,true)){if(x.isStart&&x.segmentIndex===0&&x.left<99.9)earliest.push({m,x})}}
+ if(earliest.length){earliest.sort((a,b)=>a.x.left-b.x.left);html+='<h3>'+htmlEscape(t('opensTitle'))+'</h3><div class="info-summary">'+earliest.slice(0,6).map(({m,x})=>{const p=zoneParts(x.a,zone);return `<span class="bubble"><b>${pad(p.hour)}:${pad(p.minute)}</b> · ${m.flag} ${htmlEscape(m.id.toUpperCase())}${x.a<=localInstant(selected,'00:00',zone)?' ↩':''}</span>`}).join('')+'</div>'}
  content.innerHTML=html;
 }
 function calendarDots(date){let set=new Set();for(const m of MARKETS){const s=getStatus(m,date);if(s.weekendTBD)continue;if(s.kind==='closed'&&!isWeekend(date))set.add(s.tentative?'uncertain':'close');else if(s.kind==='early')set.add(s.tentative?'uncertain':'early');else if(s.kind==='special')set.add(s.tentative?'uncertain':'special');else if(s.kind==='unknown')set.add('uncertain')}
  return [...set].sort((a,b)=>['close','early','special','uncertain'].indexOf(a)-['close','early','special','uncertain'].indexOf(b));}
 const MONTHS_RU=['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
 function renderMonths(){let html='';for(let offset=0;offset<2;offset++){const iso=monthMove(monthAnchor,offset);if(iso>END)break;const [y,mo]=iso.split('-').map(Number),days=new Date(Date.UTC(y,mo,0)).getUTCDate(),first=(new Date(Date.UTC(y,mo-1,1)).getUTCDay()+6)%7;
- html+=`<section class="month"><div class="monthtitle"><strong>${MONTHS_RU[mo-1][0].toUpperCase()+MONTHS_RU[mo-1].slice(1)} ${y}</strong><small>${htmlEscape(displayTZ(zone))}</small></div><div class="week">`;
- for(const w of ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'])html+=`<span class="weekday">${w}</span>`;
+ html+=`<section class="month"><div class="monthtitle"><strong>${monthName(y,mo)} ${y}</strong><small>${htmlEscape(displayTZ(zone))}</small></div><div class="week">`;
+ for(const w of weekdayNames())html+=`<span class="weekday">${w}</span>`;
  for(let k=0;k<first;k++)html+='<span class="day empty"></span>';
  for(let d=1;d<=days;d++){const date=`${y}-${pad(mo)}-${pad(d)}`,valid=inRange(date),weekend=isWeekend(date),sel=date===selected,now=date===localToday();const dots=valid?calendarDots(date).map(x=>`<i class="dot ${x}"></i>`).join(''):'';
  html+=`<button class="day ${weekend?'weekend':''} ${sel?'selected':''} ${now?'today':''} ${valid?'':'outofrange'}" type="button" data-date="${date}" ${valid?'':'disabled'} aria-pressed="${sel}" title="${date}">${d}<span class="dots">${dots}</span></button>`}
@@ -355,13 +541,13 @@ function renderMonths(){let html='';for(let offset=0;offset<2;offset++){const is
  document.getElementById('monthNext').disabled=monthAnchor>='2027-12-01';
  document.getElementById('monthSelect').value=monthAnchor.slice(0,7);
 }
-function renderKeyDates(){const subset=FEATURED.filter(x=>x[0]>=monthAnchor.slice(0,7)+'-01'&&x[0]<monthMove(monthAnchor,2)).slice(0,8);
- document.getElementById('keyDates').innerHTML=(subset.length?subset:FEATURED.filter(x=>x[0]>=selected).slice(0,5)).map(([d,title,desc])=>`<div class="changeitem" tabindex="0" role="button" data-feature="${d}"><span class="changeDate">${d.slice(8)}.${d.slice(5,7)}<br>${d.slice(0,4)}</span><div class="changeBody"><strong>${htmlEscape(title)}</strong><small>${htmlEscape(desc)}</small></div></div>`).join('');
+function renderKeyDates(){if(!document.getElementById('keyDates'))return;const subset=FEATURED.filter(x=>x[0]>=monthAnchor.slice(0,7)+'-01'&&x[0]<monthMove(monthAnchor,2)).slice(0,8);
+ document.getElementById('keyDates').innerHTML=(subset.length?subset:FEATURED.filter(x=>x[0]>=selected).slice(0,5)).map(([d,title,desc])=>`<div class="changeitem" tabindex="0" role="button" data-feature="${d}"><span class="changeDate">${d.slice(8)}.${d.slice(5,7)}<br>${d.slice(0,4)}</span><div class="changeBody"><strong>${htmlEscape(featureText(d,0,title))}</strong><small>${htmlEscape(featureText(d,1,desc))}</small></div></div>`).join('');
  document.querySelectorAll('[data-feature]').forEach(el=>{const on=()=>changeDate(el.dataset.feature);el.addEventListener('click',on);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();on()}})});
 }
 function updateClock(){const now=Date.now(),p=zoneParts(now,zone);document.getElementById('liveClock').textContent=`${pad(p.hour)}:${pad(p.minute)}:${pad(p.second)}`;
- document.getElementById('liveDate').textContent=`${pad(p.day)}.${pad(p.month)}.${p.year} · ${zoneOffsetString(now,zone)} · ${zone}`;
- document.getElementById('clockLabel').textContent=`Сейчас · ${displayTZ(zone)}`;
+ document.getElementById('liveDate').textContent=`${new Intl.DateTimeFormat(formatLocale(),{year:'numeric',month:'short',day:'numeric',timeZone:zone}).format(new Date(now))} · ${zoneOffsetString(now,zone)} · ${zone}`;
+ document.getElementById('clockLabel').textContent=`${t('now')} · ${displayTZ(zone)}`;
  if(isTodaySelected()){
   for(const node of document.querySelectorAll('.now-line'))node.style.left=((p.hour*60+p.minute)/1440*100)+'%';
  }
@@ -374,28 +560,33 @@ function changeDate(date,{keepMonth=false}={}){if(!inRange(date))return;selected
  document.getElementById('next').disabled=selected>=END;
  try{const u=new URL(location.href);u.searchParams.set('date',date);history.replaceState(null,'',u.toString())}catch{}
 }
-function chooseTZ(tz,save=true){const preference=tz;if(tz==='auto')tz=userZoneDetected;try{new Intl.DateTimeFormat('en',{timeZone:tz})}catch{return}zone=tz;
- document.getElementById('timezoneSelect').value=preference==='auto'?'auto':(ZONES.some(x=>x[0]===zone)?zone:'auto');
- document.getElementById('timezoneCaption').textContent='Время на графике: '+displayTZ(zone)+' · '+zoneOffsetString(Date.now(),zone);
+function chooseTZ(preference,save=true){
+ const next=preference==='auto'?userZoneDetected:preference;
+ try{new Intl.DateTimeFormat('en',{timeZone:next})}catch{return}
+ tzPreference=preference;zone=next;
  if(save){try{localStorage.setItem('market-clock-zone',preference)}catch{}}
- renderChart();renderMonths();renderKeyDates();updateClock();
+ renderStatic();renderChart();renderMonths();renderKeyDates();updateClock();
 }
+
 function init(){
- userZoneDetected=Intl.DateTimeFormat().resolvedOptions().timeZone||'Europe/Madrid';
- let saved='Europe/Madrid';try{saved=localStorage.getItem('market-clock-zone')||'Europe/Madrid'}catch{}
- let pdate='';try{pdate=new URL(location.href).searchParams.get('date')||''}catch{}
- zone=ZONES.some(z=>z[0]===saved)?saved:(saved==='auto'?userZoneDetected:'Europe/Madrid');
+ userZoneDetected=Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC';
+ let savedZone='auto',savedLang='auto';
+ try{savedZone=localStorage.getItem('market-clock-zone')||'auto';savedLang=localStorage.getItem('market-clock-lang')||'auto'}catch{}
+ let pdate='',queryTZ='',queryLang='';try{const params=new URL(location.href).searchParams;pdate=params.get('date')||'';queryTZ=params.get('tz')||'';queryLang=params.get('lang')||''}catch{}
+ tzPreference=queryTZ||savedZone;languagePreference=queryLang||savedLang;
+ language=languagePreference==='auto'?browserLanguage:languagePreference;
+ if(!I18N[language]){languagePreference='auto';language=browserLanguage}
+ zone=tzPreference==='auto'?userZoneDetected:tzPreference;
+ try{new Intl.DateTimeFormat('en',{timeZone:zone})}catch{zone=userZoneDetected;tzPreference='auto'}
  const today=localToday();selected=inRange(pdate)?pdate:(inRange(today)?today:START);
  monthAnchor=selectedMonth(selected);
- const tzsel=document.getElementById('timezoneSelect');tzsel.innerHTML=ZONES.map(([t,l])=>`<option value="${t}">${l} (${t})</option>`).join('')+`<option value="auto">Мой часовой пояс (авто: ${htmlEscape(userZoneDetected)})</option>`;
- tzsel.value=ZONES.some(z=>z[0]===zone)?zone:'auto';
- document.getElementById('timezoneCaption').textContent='Время на графике: '+displayTZ(zone);
  const monthSelect=document.getElementById('monthSelect');for(let d='2026-11-01';d<='2027-12-01';d=monthMove(d,1)){
-  const [yy,mo]=d.split('-').map(Number),o=document.createElement('option');o.value=d.slice(0,7);o.textContent=MONTHS_RU[mo-1]+' '+yy;monthSelect.appendChild(o)
+  const [yy,mo]=d.split('-').map(Number),o=document.createElement('option');o.value=d.slice(0,7);o.textContent=monthName(yy,mo)+' '+yy;monthSelect.appendChild(o)
  }
- // Official exchange source URLs are stored in SOURCES above, deliberately hidden from the interface.
- tzsel.addEventListener('change',()=>chooseTZ(tzsel.value));
+ document.getElementById('timezoneSelect').addEventListener('change',e=>chooseTZ(e.target.value));
+ document.getElementById('languageSelect').addEventListener('change',e=>chooseLanguage(e.target.value));
  document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(z=>z.classList.toggle('active',z===b));renderChart()}));
+ document.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>scrollToHour(b.dataset.jump)));
  document.getElementById('prev').addEventListener('click',()=>changeDate(shiftDate(selected,-1)));
  document.getElementById('next').addEventListener('click',()=>changeDate(shiftDate(selected,1)));
  document.getElementById('today').addEventListener('click',()=>changeDate(inRange(localToday())?localToday():START));
@@ -403,11 +594,11 @@ function init(){
  document.getElementById('monthPrev').addEventListener('click',()=>{monthAnchor=monthMove(monthAnchor,-1);renderMonths();renderKeyDates()});
  document.getElementById('monthNext').addEventListener('click',()=>{monthAnchor=monthMove(monthAnchor,1);renderMonths();renderKeyDates()});
  monthSelect.addEventListener('change',e=>{monthAnchor=e.target.value+'-01';renderMonths();renderKeyDates()});
- document.getElementById('copyLink').addEventListener('click',async()=>{const link=new URL(location.href);link.searchParams.set('date',selected);link.searchParams.set('tz',zone);let ok=false;try{await navigator.clipboard.writeText(link.href);ok=true}catch{}document.getElementById('copyLink').textContent=ok?'Скопировано ✓':'Дата: '+selected;setTimeout(()=>document.getElementById('copyLink').textContent='Скопировать ссылку на дату',1600)});
- try{const t=new URL(location.href).searchParams.get('tz');if(t)zone=ZONES.some(z=>z[0]===t)?t:zone}catch{}
- tzsel.value=zone;changeDate(selected);chooseTZ(zone,false);updateClock();
- setInterval(()=>{const before=isTodaySelected();updateClock();if(before&&selected!==localToday()){renderChart();renderMonths()}},1000);
+ document.getElementById('copyLink').addEventListener('click',async()=>{const link=new URL(location.href);link.searchParams.set('date',selected);if(tzPreference!=='auto')link.searchParams.set('tz',zone);else link.searchParams.delete('tz');if(languagePreference!=='auto')link.searchParams.set('lang',language);else link.searchParams.delete('lang');let ok=false;try{await navigator.clipboard.writeText(link.href);ok=true}catch{}document.getElementById('copyLink').textContent=ok?t('copied'):t('copy');setTimeout(()=>document.getElementById('copyLink').textContent=t('copy'),1600)});
+ renderStatic();changeDate(selected);updateClock();
+ let previousDay=localToday();setInterval(()=>{const todayNow=localToday();if(todayNow!==previousDay){if(selected===previousDay&&inRange(todayNow))changeDate(todayNow);else{renderChart();renderMonths()}previousDay=todayNow}updateClock()},1000);
 }
+
 init();
 
 </script>
