@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="dark" />
+<title>Market Clock · мировые биржи · 2026—2027</title>
+<style>
+:root{--bg:#0c111b;--card:#141d2b;--card2:#192536;--edge:#2a3547;--text:#e9edf4;--muted:#929fb1;--soft:#64748b;--sky:#61c6f3;--teal:#55d8bf;--violet:#ad9afd;--amber:#ffca80;--red:#f09595;--green:#a3e9b4;--shadow:0 20px 70px #05080e60}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(1100px 600px at 86% -15%,#203752 0%,transparent 70%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.48}button,a{font:inherit}button{cursor:pointer}a{color:var(--sky)}.shell{width:min(1460px,calc(100% - 36px));margin:auto}.top{padding:32px 0 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}.eyebrow{font-size:11px;letter-spacing:.16em;font-weight:800;color:#80a5c7;margin-bottom:10px}.top h1{font-size:clamp(30px,4vw,47px);letter-spacing:-.048em;line-height:1.08;margin:0 0 12px;font-weight:760}.top .intro{color:var(--muted);max-width:810px;margin:0;font-size:14px}.live{background:#111e2b;border:1px solid #345067;border-radius:17px;padding:15px 18px;min-width:228px}.live small{color:#a1b2c4;display:block;font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:700}.live .clock{font-size:30px;font-weight:730;font-variant-numeric:tabular-nums;letter-spacing:-.04em;line-height:1.3}.live .timeDate{font-size:12px;color:var(--muted)}.pulse{display:inline-block;height:8px;width:8px;border-radius:50%;background:#76e0bb;box-shadow:0 0 0 4px #76e0bb16;margin-right:5px}.pills{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 24px}.pill{font-size:12px;color:#a8bcd0;padding:7px 12px;border-radius:10px;border:1px solid #344356;background:#152234}.layout{display:grid;grid-template-columns:minmax(0,1fr) 365px;gap:18px;align-items:start}.maincol,.sidecol{min-width:0}.panel{border:1px solid var(--edge);border-radius:20px;background:linear-gradient(152deg,#172231,#121a27);box-shadow:var(--shadow);overflow:hidden;margin-bottom:18px}.ph{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:22px 24px 14px;flex-wrap:wrap}.ph h2{margin:0;font-size:19px;font-weight:750;letter-spacing:-.025em}.ph p{margin:4px 0 0;font-size:12px;color:var(--muted)}.controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.ctl{border:1px solid #334156;color:#c6d0df;background:#172437;border-radius:10px;padding:9px 12px;font-size:12px;font-weight:680;transition:.16s}.ctl:hover{border-color:#6995b7}.ctl:focus-visible,.day:focus-visible{outline:2px solid #8cd0fa;outline-offset:3px}.ctl:disabled{opacity:.3;cursor:not-allowed}.ctl.primary{background:#253e54;border-color:#416b87;color:#dff2ff}.choose{display:flex;gap:6px;padding:6px 24px 14px;flex-wrap:wrap}.choose button{border:1px solid transparent;color:#96a6bb;background:transparent;padding:6px 12px;border-radius:9px;font-size:12px;font-weight:650}.choose button.active{border-color:#446b86;background:#233b50;color:#e8f7ff}.choose button:hover{color:#e1eefb}.datebar{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.selected-label{font-size:13px;color:#b7c9de;font-weight:650}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:0 24px 18px}.stat{background:#0e1927;border:1px solid #263648;border-radius:12px;padding:12px}.stat b{font-size:24px;font-weight:750;font-variant-numeric:tabular-nums;display:block;line-height:1.1}.stat small{font-size:11px;color:#96a7bb;display:block;margin-top:5px}.chart-viewport{overflow:auto;scrollbar-color:#456078 #172333;scrollbar-width:thin;padding:0 16px 16px}.chart{min-width:770px}.hours{display:grid;grid-template-columns:194px minmax(0,1fr);border-bottom:1px solid #2b3a4d;min-height:35px}.axislabel{font-size:10px;color:#7c8c9f;padding:11px 8px 0}.axis{position:relative;margin-right:8px}.tick{position:absolute;top:0;transform:translateX(-50%);font-size:10px;color:#8493a8}.tick.first{transform:none}.tick.last{transform:translateX(-100%)}.trow{display:grid;grid-template-columns:194px minmax(0,1fr);min-height:48px;border-bottom:1px solid #223045}.trow:last-child{border-bottom:none}.mname{display:flex;align-items:center;gap:8px;padding:6px 7px}.flag{font-size:18px;flex:0 0 23px;text-align:center}.mtext{min-width:0}.mtext strong{display:block;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mtext small{display:block;font-size:10px;color:#8799ac;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.track{position:relative;background:repeating-linear-gradient(90deg,transparent 0,transparent calc(100% / 24 - 1px),#283648 calc(100% / 24 - 1px),#283648 calc(100% / 24));margin-right:8px}.bar{position:absolute;top:15px;height:17px;border-radius:4px;min-width:2px;box-shadow:inset 0 1px 0 #ffffff38;opacity:.89}.bar.asia{background:linear-gradient(90deg,#3e9e95,#62d9ca)}.bar.europe{background:linear-gradient(90deg,#4e8de2,#77b7fb)}.bar.us{background:linear-gradient(90deg,#8a79d2,#b5a6ff)}.bar.ru{background:linear-gradient(90deg,#ba9757,#f4cf84)}.bar.special{background:repeating-linear-gradient(135deg,#6eacbd,#6eacbd 7px,#41768a 7px,#41768a 13px)}.bar.opening{box-shadow:inset 3px 0 #e7ffff, inset 0 1px #ffffff60}.bar:hover{filter:brightness(1.2);z-index:10}.closed-track{display:flex;align-items:center;justify-content:flex-start;color:#e39b9b;font-size:11px;padding-left:16px;gap:7px;font-weight:650}.unknown-track{color:#f4cc83}.now-line{position:absolute;top:0;bottom:0;width:2px;background:#f8d77b;box-shadow:0 0 12px #ffd76f77;z-index:20;pointer-events:none}.now-line:before{content:"";position:absolute;top:1px;left:-4px;width:10px;height:10px;border-radius:50%;background:#ffdd83}.startline{position:absolute;width:1px;top:12px;bottom:10px;background:#ffffffa6;pointer-events:none}.bar-title{position:absolute;left:7px;top:1px;font-size:10px;font-weight:800;color:#081a24;text-shadow:0 1px #ffffff18;white-space:nowrap;pointer-events:none}.warn{color:#eabf82}.legend{display:flex;gap:16px;align-items:center;flex-wrap:wrap;color:#9cacc1;font-size:11px;padding:0 24px 20px}.key{display:inline-flex;align-items:center;gap:6px}.swatch{height:9px;width:14px;border-radius:3px;background:#55d8bf}.swatch.eur{background:#77b7fb}.swatch.usa{background:#b5a6ff}.swatch.rus{background:#f4cf84}.swatch.closed{background:#f09595}.swatch.part{background:repeating-linear-gradient(135deg,#6eacbd,#6eacbd 3px,#41768a 3px,#41768a 6px)}.info{padding:2px 24px 24px}.info h3{font-size:13px;margin:16px 0 9px;letter-spacing:.005em}.notice{padding:11px 13px;background:#172537;border:1px solid #30445a;border-radius:10px;font-size:12px;color:#bdcde0;margin:7px 0;display:flex;align-items:start;gap:9px}.notice.holiday{border-color:#654044;background:#35252b}.notice.early{border-color:#6a553e;background:#302a25}.notice.unknown{border-color:#665c3e;background:#302d24}.notice .nicon{font-size:16px;line-height:1.2}.notice strong{color:#e6eef8}.notice small{display:block;font-size:11px;color:#b2bdca;margin-top:2px}.info-summary{border-top:1px solid #27364a;padding-top:12px;display:flex;flex-wrap:wrap;gap:8px}.bubble{color:#aab9c9;background:#122235;border:1px solid #344155;font-size:11px;padding:5px 9px;border-radius:8px}.cal-head{padding:22px 22px 6px}.cal-head h2{margin:0;font-size:19px;letter-spacing:-.02em}.cal-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.cal-nav{display:flex;gap:5px;margin-top:14px}.cal-nav .ctl{flex:1}.months{padding:0 16px 18px;display:grid;gap:12px}.month{border:1px solid #2c3a50;background:#111c2a;border-radius:14px;padding:12px}.monthtitle{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:9px}.monthtitle strong{font-size:14px}.monthtitle small{font-size:10px;color:#8ca1b7}.week{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}.weekday{font-size:10px;color:#8596aa;text-align:center;padding:3px 0 7px}.day{border:1px solid transparent;border-radius:8px;background:transparent;color:#cfdae8;height:37px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:2px;position:relative;font-size:12px;font-weight:680}.day.empty{opacity:0;pointer-events:none}.day:hover{background:#27394c}.day.outofrange{opacity:.26}.day.weekend{color:#9ea9b9}.day.selected{background:#284f68;color:white;border-color:#6ab6d9;box-shadow:0 0 0 1px #4f96b9}.day.today:not(.selected){border-color:#739cc2}.dots{height:4px;display:flex;gap:2px;justify-content:center}.dot{width:4px;height:4px;border-radius:50%}.dot.close{background:#ed888a}.dot.early{background:#f8c879}.dot.special{background:#76d4c1}.dot.uncertain{background:#c3b1fd}.cal-help{padding:0 22px 22px;font-size:11px;color:#99aabc}.cal-help .inline-dot{display:inline-block;width:6px;height:6px;border-radius:50%;vertical-align:middle;margin-right:2px}.changes{padding:12px 20px 18px}.changes h2{font-size:18px;margin:4px 0 13px}.changeitem{display:flex;gap:12px;padding:10px 2px;border-top:1px solid #29384a;cursor:pointer}.changeitem:first-of-type{border-top:none}.changeitem:hover{background:#1b2a3b}.changeDate{min-width:61px;color:#8fa5be;font-size:11px;padding-top:2px;font-variant-numeric:tabular-nums}.changeBody{font-size:12px;line-height:1.4}.changeBody strong{color:#e8edf5;font-weight:700}.changeBody small{display:block;color:#94a6b9;margin-top:2px}.foot{padding:0 0 42px;color:#8c9caf}.sourcebar{border-top:1px solid #27374a;padding-top:15px;margin-top:6px;display:flex;flex-wrap:wrap;gap:9px 14px}.foot h2{font-size:14px;color:#d4e0ee}.foot p{max-width:1000px;font-size:12px}.sourcebar a{font-size:11px;text-decoration:none;border-bottom:1px solid #496987}.download-tools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.download-tools .ctl{padding:6px 11px}.hidelogo{display:none}@media(min-width:1200px){.months{grid-template-columns:1fr}.month{padding:13px}}@media(max-width:1130px){.layout{grid-template-columns:1fr}.months{grid-template-columns:repeat(3,minmax(0,1fr))}.sidecol{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px}.sidecol .panel{height:fit-content}}@media(max-width:840px){.sidecol{display:block}.months{grid-template-columns:repeat(3,minmax(0,1fr))}.trow,.hours{grid-template-columns:174px 1fr}}@media(max-width:600px){.shell{width:min(100% - 22px,1460px)}.top{padding-top:22px}.live{width:100%}.ph{padding:19px 15px 12px}.choose{padding:0 12px 12px}.stats{padding:0 12px 15px}.stat{padding:10px}.stat b{font-size:20px}.chart-viewport{padding:0 7px 12px}.legend,.info{padding-left:14px;padding-right:14px}.months{grid-template-columns:1fr}.month{max-width:450px;width:100%;margin:auto}.week{gap:4px}.day{height:39px}.pill{font-size:11px}.panel{border-radius:15px}}@media print{body{background:#fff;color:#101e33}.panel{background:#fff;box-shadow:none;color:#101e33}.top .intro,.ph p,.monthtitle small{color:#45576d}.chart-viewport{overflow:visible}.chart{min-width:660px}.cal-nav,.controls,.choose, .download-tools{display:none}.layout{display:block}.sidecol .panel{break-inside:avoid}.hours,.trow{grid-template-columns:160px 1fr}.mtext small,.mtext strong{color:#18344e}.track{background:#f0f3f9}.day{color:#1f2e45}.foot{color:#34485d}}
+
+.time-settings{min-width:265px;display:flex;flex-direction:column;gap:7px}.time-settings .live{min-width:0}.setting-label{font-size:11px;color:#b6cadd;font-weight:700;margin:6px 2px 0}.timezone-select,.month-select,.date-picker{border:1px solid #40546b;background:#152538;color:#e5f1fc;border-radius:10px;padding:9px 11px;max-width:100%;font:inherit;font-size:12px}.timezone-select{width:100%}.month-select{flex:1;width:100px;min-width:0}.date-picker{padding:6px 7px;max-width:158px;color-scheme:dark}.zone-caption{font-size:11px;color:#92a8c0;margin:0 2px}.time-settings .clock{font-size:35px}.cal-nav{align-items:center}.cal-nav .ctl{flex:0 0 40px;font-size:19px;padding:5px 8px}.cal-nav .month-select{flex:1}.dst-notice{margin:0 24px 8px;color:#ffd58e;font-size:11px}.bar.tentative{opacity:.64;background-image:repeating-linear-gradient(135deg,transparent 0,transparent 7px,#0d182d78 7px,#0d182d78 10px)}.caution{color:#efc57e;font-weight:800}.stat b{font-variant-numeric:tabular-nums}.cal-help{line-height:1.7}.top{align-items:flex-start}.datebar{align-items:center}.selected-label{line-height:1.6}@media(max-width:1040px){.time-settings{width:min(100%,500px)}.shell{width:min(100% - 24px,1460px)}}@media(max-width:600px){.top{padding-top:19px}.top h1{font-size:31px}.time-settings{width:100%;display:grid;grid-template-columns:minmax(0,1fr);gap:7px}.time-settings .live{width:100%}.time-settings .clock{font-size:37px}.ph{padding:17px 16px 10px}.choose{padding:6px 16px 12px}.stats{padding:0 16px 14px}.info{padding:0 16px 20px}.legend{padding:0 16px 15px}.chart-viewport{padding:0 9px 12px}.datebar{width:100%;justify-content:flex-start}.cal-head{padding:17px 16px 8px}.months{padding:0 11px 16px}.cal-help{padding:0 16px 18px}.dst-notice{margin:0 16px 8px}.month{padding:9px}.changes{padding:12px 16px 16px}.day{height:36px}.pills{margin-bottom:10px}.stat small{font-size:10px}}
+
+/* Polished header and accessible print rendering */
+.header-actions{margin:8px 0 0;display:flex;gap:7px;flex-wrap:wrap}
+.header-actions .ctl{padding:7px 10px}
+@page{size:A4 landscape;margin:10mm}
+@media print{
+ html,body{background:#fff!important;color:#172437!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ *{box-shadow:none!important;text-shadow:none!important}
+ .shell{width:100%!important;max-width:none!important;margin:0!important}
+ .top{padding:0 0 10px!important;display:flex!important;justify-content:space-between!important;gap:16px!important}
+ .top h1{font-size:25px!important;line-height:1.05!important;margin:2px 0 6px!important;color:#142238!important}
+ .top .intro{font-size:10px!important;color:#46556d!important;max-width:620px!important}
+ .eyebrow{font-size:9px!important}
+ .time-settings{width:190px!important;min-width:190px!important;display:block!important}
+ .time-settings .live{padding:5px 10px!important;background:#eef5fb!important;border-color:#c7d1db!important;color:#142238!important}
+ .time-settings .clock{font-size:22px!important;color:#142238!important}
+ .time-settings .timeDate{font-size:8px!important;color:#41556a!important}
+ .time-settings small{font-size:8px!important;color:#41556a!important}
+ .timezone-select,.setting-label,.zone-caption,.header-actions,.cal-nav,.controls,.choose,.datebar{display:none!important}
+ .layout{display:block!important}
+ .panel{background:#fff!important;border:1px solid #ccd6e0!important;border-radius:10px!important;overflow:visible!important;margin-bottom:8px!important;box-shadow:none!important}
+ .maincol>.panel{break-inside:auto!important}
+ .ph{padding:8px 11px 5px!important;gap:5px!important}
+ .ph h2{font-size:15px!important;color:#142238!important}
+ .ph p,.selected-label{font-size:9px!important;color:#4b6076!important}
+ .stats{padding:0 11px 7px!important;gap:6px!important}
+ .stat{padding:5px 9px!important;border:1px solid #d6e2ec!important;background:#f4f7fb!important}
+ .stat b{font-size:16px!important;color:#162f43!important}
+ .stat small{font-size:8px!important;color:#516478!important;margin-top:1px!important}
+ .chart-viewport{overflow:visible!important;padding:0 7px 5px!important}
+ .chart{min-width:0!important;width:100%!important}
+ .hours,.trow{grid-template-columns:165px minmax(0,1fr)!important;min-height:0!important}
+ .hours{height:26px!important}
+ .trow{height:24px!important;break-inside:avoid!important}
+ .axislabel{padding-top:6px!important}
+ .mname{padding:1px 5px!important;gap:5px!important}
+ .mtext strong{font-size:9px!important;color:#1a3246!important}
+ .mtext small{font-size:8px!important;color:#506376!important}
+ .flag{font-size:12px!important;flex-basis:17px!important}
+ .track{background:repeating-linear-gradient(90deg,#f4f7fb 0,#f4f7fb calc(100% / 24 - 1px),#dce3eb calc(100% / 24 - 1px),#dce3eb calc(100% / 24))!important}
+ .bar{top:6px!important;height:11px!important;opacity:1!important}
+ .bar-title{font-size:8px!important}
+ .closed-track{font-size:9px!important}
+ .now-line{background:#ba830f!important}
+ .legend{padding:2px 10px 7px!important;gap:8px!important;font-size:8px!important;color:#46596e!important}
+ .dst-notice{font-size:8px!important;color:#795021!important}
+ .info{padding:0 11px 10px!important}
+ .info h3{font-size:10px!important;color:#203148!important;margin:6px 0 3px!important}
+ .notice{border-color:#d2dbe6!important;background:#f4f7fb!important;color:#26364b!important;padding:4px 7px!important;margin:3px 0!important;font-size:9px!important;break-inside:avoid!important}
+ .notice strong{color:#19334a!important}.notice small{color:#4b5d70!important;font-size:8px!important}
+ .bubble{color:#2f4964!important;border-color:#cbd9e5!important;background:#f7fafd!important;font-size:8px!important;padding:2px 5px!important}
+ .info-summary{display:none!important}.info h3{display:none!important}
+ .sidecol{break-before:page!important;display:grid!important;grid-template-columns:2fr 1fr!important;gap:12px!important}
+ .sidecol .panel{break-inside:avoid!important}
+ .cal-head{padding:12px 12px 4px!important}.cal-head h2{font-size:15px!important;color:#142238!important}.cal-head p{font-size:9px!important;color:#506376!important}
+ .months{padding:0 10px 8px!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+ .month{padding:7px!important;border-color:#ced8e3!important;background:#fff!important;break-inside:avoid!important}
+ .monthtitle strong{font-size:11px!important;color:#203148!important}
+ .monthtitle small{font-size:8px!important;color:#506376!important}
+ .weekday{font-size:8px!important;color:#60748b!important;padding:2px!important}
+ .day{height:27px!important;color:#152b40!important;font-size:9px!important;border-radius:4px!important}
+ .day.weekend{color:#8090a3!important}
+ .day.selected{background:#d7eefa!important;color:#0f364d!important;border-color:#9ac7dd!important}
+ .day.outofrange{opacity:.22!important}
+ .cal-help{padding:0 10px 10px!important;color:#475b71!important;font-size:8px!important}
+ .changes{padding:10px!important}.changes h2{font-size:14px!important;color:#172c41!important}
+ .changeitem{border-color:#d8e1eb!important;padding:6px 0!important}.changeDate{font-size:9px!important;color:#566a7f!important}.changeBody{font-size:10px!important}.changeBody strong{color:#1e3248!important}.changeBody small{color:#536a7f!important;font-size:8px!important}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="top">
+  <div>
+    <div class="eyebrow">MARKET CLOCK / БИРЖИ МИРА</div>
+    <h1>Когда открываются рынки</h1>
+    <p class="intro">Сессии 14 рынков и календарь праздников до <strong>31.12.2027</strong>. Выбери часовой пояс — график учтёт летнее время. Работает офлайн.</p>
+  </div>
+  <div class="time-settings"><div class="live" aria-live="polite"><small><span class="pulse"></span><span id="clockLabel">Сейчас · Мадрид</span></small><div class="clock" id="liveClock">--:--:--</div><div class="timeDate" id="liveDate">Europe/Madrid</div></div><label class="setting-label" for="timezoneSelect">Часовой пояс графика</label><select class="timezone-select" id="timezoneSelect" aria-label="Выбрать часовой пояс"><option value="Europe/Madrid">Мадрид</option></select><div class="zone-caption" id="timezoneCaption"></div><div class="download-tools header-actions"><button class="ctl" type="button" onclick="window.print()">Печать / PDF</button><button class="ctl" id="copyLink" type="button">Скопировать ссылку на дату</button></div></div>
+</header>
+<section class="layout">
+ <div class="maincol">
+  <article class="panel">
+   <div class="ph"><div><h2>График торговых сессий</h2><p>Блоки — открытые периоды, промежутки — перерывы. Вертикальная жёлтая линия — текущее время.</p></div><div class="controls"><button class="ctl" id="prev" type="button" title="Предыдущий день">←</button><button class="ctl primary" id="today" type="button">Сегодня</button><button class="ctl" id="next" type="button" title="Следующий день">→</button></div></div>
+   <div class="choose" role="group" aria-label="Группы рынков"><button data-filter="all" class="active">Все рынки</button><button data-filter="asia">Азия / Австралия</button><button data-filter="ru">MOEX</button><button data-filter="europe">Европа</button><button data-filter="us">США</button></div>
+   <div class="ph" style="padding-top:0"><div class="selected-label" id="selectedDate"></div><div class="datebar"><span style="font-size:11px;color:#8ea1b6">Выбери дату или месяц → <input type="date" class="date-picker" id="dateInput" min="2026-11-23" max="2027-12-31" aria-label="Выбрать дату" /></span></div></div>
+   <div class="stats"><div class="stat"><b id="openCount">—</b><small>торгуют по выбранной дате</small></div><div class="stat"><b id="closedCount">—</b><small>закрыты</small></div><div class="stat"><b id="specialCount">—</b><small>особый график / уточнить</small></div></div>
+   <div id="dstNotice" class="dst-notice" aria-live="polite"></div><div class="chart-viewport"><div class="chart" id="timeline" role="img" aria-label="Суточная шкала торговых сессий по мадридскому времени"></div></div>
+   <div class="legend"><span class="key"><span class="swatch"></span>Азия</span><span class="key"><span class="swatch rus"></span>MOEX</span><span class="key"><span class="swatch eur"></span>Европа</span><span class="key"><span class="swatch usa"></span>США</span><span class="key"><span class="swatch part"></span>Доп. сессия</span><span class="key"><span class="swatch closed"></span>Закрыто</span></div>
+   <section class="info" id="dayInfo" aria-live="polite"></section>
+  </article>
+ </div>
+ <div class="sidecol">
+  <article class="panel"><div class="cal-head"><h2>Календарь рынков</h2><p>Нажми день — расписание и статусы пересчитаются.</p><div class="cal-nav"><button class="ctl" type="button" id="monthPrev" aria-label="Предыдущий месяц">‹</button><select class="month-select" id="monthSelect" aria-label="Выбрать месяц"></select><button class="ctl" type="button" id="monthNext" aria-label="Следующий месяц">›</button></div></div><div class="months" id="months"></div><div class="cal-help"><span class="inline-dot" style="background:var(--red)"></span> закрытия &nbsp; <span class="inline-dot" style="background:var(--amber)"></span> сокращённый день &nbsp; <span class="inline-dot" style="background:var(--teal)"></span> доп. сессия &nbsp; <span class="inline-dot" style="background:var(--violet)"></span> требует проверки</div></article>
+  <article class="panel"><div class="changes"><h2>Важные даты рядом</h2><div id="keyDates"></div></div></article>
+ </div>
+</section>
+
+</div>
+<script>
+'use strict';
+// Market Clock reference calendar, researched 2026-11-23. All market sessions are entered in their local exchange timezone.
+const START='2026-11-23', END='2027-12-31';
+const ZONES=[
+ ['Europe/Madrid','Мадрид / Испания'],['Europe/London','Лондон'],['Europe/Paris','Париж / Берлин'],
+ ['Europe/Moscow','Москва'],['America/New_York','Нью-Йорк'],['America/Chicago','Чикаго (CME)'],
+ ['Asia/Tokyo','Токио'],['Asia/Seoul','Сеул'],['Asia/Hong_Kong','Гонконг'],
+ ['Asia/Singapore','Сингапур'],['Asia/Kolkata','Мумбаи'],['Asia/Shanghai','Шанхай'],
+ ['Australia/Sydney','Сидней'],['UTC','UTC']
+];
+const SOURCES=[
+ ['MOEX: график 2027','https://www.moex.com/n104687'],
+ ['MOEX: торговый календарь','https://www.moex.com/en/tradingcalendar/'],
+ ['JPX: выходные 2027','https://www.jpx.co.jp/english/corporate/about-jpx/calendar/'],
+ ['ASX: календарь 2027','https://www.asx.com.au/markets/market-resources/trading-hours-calendar/cash-market-trading-hours/trading-calendar'],
+ ['TWSE: календарь 2027','https://www.twse.com.tw/holidaySchedule/holidaySchedule?response=html'],
+ ['HKEX: календарь','https://www.hkex.com.hk/news/hkex-calendar?sc_lang=en'],
+ ['SGX: режим торгов','https://www.sgx.com/securities/trading'],
+ ['Сингапур: праздники 2027','https://www.mom.gov.sg/newsroom/press-releases/2026/0618-public-holidays-for-2027'],
+ ['Euronext: 2027','https://www.euronext.com/en/trading/trading-hours-holidays'],
+ ['Xetra: 2027','https://cashmarket.deutsche-boerse.com/cash-en/trading/trading-calendar-and-trading-hours'],
+ ['LSE: календарь 2027','https://www.londonstockexchange.com/en/resources/markets-products/business-days'],
+ ['NYSE: 2027','https://www.nyse.com/markets/hours-calendars'],
+ ['CME: Globex holidays','https://www.cmegroup.com/trading-hours.html'],
+ ['KRX: официальные правила торгов и выходных','https://global.krx.co.kr/contents/GLB/06/0606/0606030101/GLB0606030101T3.jsp'],
+ ['NSE: официальный календарь','https://www.nseindia.com/resources/exchange-communication-holidays'],
+ ['SSE: официальный календарь','https://english.sse.com.cn/start/trading/schedule/']
+];
+const MK=[
+ ['asx','ASX / Австралия','S&P/ASX 200 · акции','🇦🇺','asia','Australia/Sydney',[['10:00','16:00']]],
+ ['krx','KRX / Южная Корея','KOSPI / KOSDAQ · акции','🇰🇷','asia','Asia/Seoul',[['09:00','15:30']]],
+ ['jpx','JPX / Токио','Nikkei / TOPIX · акции','🇯🇵','asia','Asia/Tokyo',[['09:00','11:30'],['12:30','15:30']]],
+ ['sgx','SGX / Сингапур','Straits Times · акции','🇸🇬','asia','Asia/Singapore',[['09:00','12:00'],['13:00','17:00']]],
+ ['twse','TWSE / Тайвань','TAIEX · акции','🇹🇼','asia','Asia/Taipei',[['09:00','13:30']]],
+ ['hkex','HKEX / Гонконг','Hang Seng · акции','🇭🇰','asia','Asia/Hong_Kong',[['09:30','12:00'],['13:00','16:00']]],
+ ['sse','SSE / Китай','Шанхай / Шэньчжэнь · акции','🇨🇳','asia','Asia/Shanghai',[['09:30','11:30'],['13:00','15:00']]],
+ ['nse','NSE / Индия','Nifty 50 · акции','🇮🇳','asia','Asia/Kolkata',[['09:15','15:30']]],
+ ['moex','MOEX / Москва','Акции / срочный рынок · обобщённо','🇷🇺','ru','Europe/Moscow',[['07:00','09:00'],['09:00','19:00'],['19:00','23:50']]],
+ ['xetra','Xetra / Франкфурт','DAX · акции','🇩🇪','europe','Europe/Berlin',[['09:00','17:30']]],
+ ['euronext','Euronext / Париж','CAC 40 · акции','🇫🇷','europe','Europe/Paris',[['09:00','17:30']]],
+ ['lse','LSE / Лондон','FTSE 100 · акции','🇬🇧','europe','Europe/London',[['08:00','16:30']]],
+ ['nyse','NYSE / Nasdaq','S&P 500 / Nasdaq · акции','🇺🇸','us','America/New_York',[['09:30','16:00']]],
+ ['cme','CME / ES, NQ','ES, NQ, MES, MNQ · Globex','🇺🇸','us','America/Chicago',[]]
+];
+const MARKETS=MK.map(([id,name,sub,flag,region,tz,segments])=>({id,name,sub,flag,region,tz,segments}));
+const EVENTS={};
+function ev(date,ids,kind,reason,segments=null,tentative=false){
+ for(const id of ids.trim().split(/\s+/)){
+  (EVENTS[date]??={})[id]={kind,reason,segments,tentative};
+ }
+}
+function dates(start,end,cb){for(let d=start;d<=end;d=shiftDate(d,1))cb(d)}
+function close(ds,ids,reason,tentative=false){for(const d of ds.trim().split(/\s+/))ev(d,ids,'closed',reason,null,tentative)}
+function partial(ds,ids,reason,segments,tentative=false,kind='early'){for(const d of ds.trim().split(/\s+/))ev(d,ids,kind,reason,segments,tentative)}
+// ---- 2026 end-of-year ----
+close('2026-11-23','jpx','День благодарности труду · Токио');
+close('2026-11-24','nse','Гуру Нанак Джаянти');
+close('2026-11-26','nyse','Thanksgiving · фондовый рынок США');
+partial('2026-11-26','cme','Thanksgiving: перерыв ES/NQ в 12:00–17:00 CT',[['00:00','12:00'],['17:00','24:00']],false,'special');
+partial('2026-11-27','nyse','После Thanksgiving: закрытие акций в 13:00 ET',[['09:30','13:00']]);
+partial('2026-11-27','cme','После Thanksgiving: ES/NQ до 12:15 CT',[['00:00','12:15']]);
+// Weekend sessions: published by MOEX for December 2026
+for(const d of ['2026-12-05','2026-12-06','2026-12-12','2026-12-13','2026-12-19','2026-12-20','2026-12-26','2026-12-27'])
+ ev(d,'moex','special','Дополнительная выходная сессия MOEX: 09:50–19:00 MSK (только допущенные инструменты)',[['09:50','19:00']]);
+close('2026-12-24','xetra','Xetra не торгуется в сочельник');
+partial('2026-12-24','asx','ASX сокращённый день, до 14:10 Сидней',[['10:00','14:10']]);
+partial('2026-12-24','hkex','HKEX только утренняя сессия, аукцион закрытия отдельно',[['09:30','12:00']]);
+partial('2026-12-24','sgx','SGX половина дня · 09:00–12:00',[['09:00','12:00']]);
+partial('2026-12-24','euronext','Euronext Paris полдня; точный час окончания уточняется биржей',null,true,'unknown');
+partial('2026-12-24','lse','LSE: закрытие с 12:30 по Лондону',[['08:00','12:30']]);
+partial('2026-12-24','nyse','NYSE / Nasdaq до 13:00 ET',[['09:30','13:00']]);
+partial('2026-12-24','cme','CME ES/NQ до 12:15 CT',[['00:00','12:15']]);
+close('2026-12-25','asx krx sgx twse hkex nse xetra euronext lse nyse cme','Рождество / День Конституции Тайваня');
+close('2026-12-28','asx hkex lse','Перенесённый выходной Boxing Day / Рождество');
+close('2026-12-31','moex krx jpx xetra','Предновогодний выходной биржи');
+partial('2026-12-31','asx','ASX до 14:10 Сидней',[['10:00','14:10']]);
+partial('2026-12-31','hkex','HKEX предновогодняя полусессия',[['09:30','12:00']]);
+partial('2026-12-31','sgx','SGX половина дня',[['09:00','12:00']]);
+partial('2026-12-31','euronext','Euronext Paris полдня; точное время завершения требует подтверждения',null,true,'unknown');
+partial('2026-12-31','lse','LSE: торги до 12:30 по Лондону',[['08:00','12:30']]);
+partial('2026-12-31','cme','CME ES/NQ обычное завершение в 16:00 CT, вечернего возобновления нет',[['00:00','16:00']],false,'special');
+// ---- 2027: broad closures ----
+close('2027-01-01','asx krx jpx sgx twse hkex sse moex xetra euronext lse nyse cme','Новый год');
+// MOEX explicitly trades on state holiday weekdays (2027 announcement). Weekend extra dates TBD.
+ev('2027-01-01','nse','unknown','NSE: биржа пока не опубликовала окончательный календарь 2027; новогодняя сессия не подтверждена',null,true);
+close('2027-01-07','moex','Рождество: MOEX закрыта');
+for(const d of ['2027-01-04','2027-01-05','2027-01-06','2027-01-08','2027-02-22','2027-05-03','2027-05-10','2027-06-14','2027-11-05'])
+ ev(d,'moex','special','MOEX торгуется в официальный российский праздник; отдельные расчётные ограничения',null,false);
+partial('2027-01-04','krx','Первый день года: начало KRX в 10:00 вместо 09:00 KST',[['10:00','15:30']],true,'special');
+// Japan JPX official 2027
+close('2027-01-11 2027-02-11 2027-02-23 2027-03-22 2027-04-29 2027-05-03 2027-05-04 2027-05-05 2027-07-19 2027-08-11 2027-09-20 2027-09-23 2027-10-11 2027-11-03 2027-11-23 2027-12-31', 'jpx','Национальный праздник Японии / выходной JPX (акции)');
+// Australia ASX official 2027
+close('2027-01-26 2027-03-26 2027-03-29 2027-06-14 2027-12-27 2027-12-28','asx','ASX: праздничный выходной');
+// 2027-04-26 ASX cash market: normal trading day (ANZAC substitute), per official calendar.
+partial('2027-12-24 2027-12-31','asx','ASX закрывается в 14:10 Sydney',[['10:00','14:10']]);
+// Hong Kong HKEX official 2027 / market list
+close('2027-02-08 2027-02-09 2027-03-26 2027-03-29 2027-04-05 2027-05-13 2027-06-09 2027-07-01 2027-09-16 2027-10-01 2027-10-08 2027-12-27','hkex','HKEX: праздничное закрытие');
+partial('2027-02-05 2027-12-24 2027-12-31','hkex','HKEX: праздничная полусессия, утро до 12:00 HKT',[['09:30','12:00']]);
+// Taiwan TWSE official 2027
+close('2027-02-02 2027-02-03 2027-02-04 2027-02-05 2027-02-08 2027-02-09 2027-02-10 2027-03-01 2027-04-05 2027-04-06 2027-04-30 2027-06-09 2027-09-15 2027-09-28 2027-10-11 2027-10-25 2027-12-24 2027-12-31','twse','TWSE: официальный праздничный / расчётный перерыв');
+// KRX 2027 from exchange calendar compilation, provisional until KRX confirms
+close('2027-02-08 2027-02-09 2027-03-01 2027-05-03 2027-05-05 2027-05-13 2027-07-19 2027-08-16 2027-09-14 2027-09-15 2027-09-16 2027-10-04 2027-10-11 2027-12-27 2027-12-31','krx','Праздник Южной Кореи / KRX (ожидается)',true);
+// Singapore SGX based on official Ministry of Manpower holiday calendar; half-days from established SGX pattern (tentative)
+close('2027-02-08 2027-03-10 2027-03-26 2027-05-17 2027-05-20 2027-08-09 2027-10-28','sgx','Государственный праздник Сингапура · SGX',true);
+partial('2027-02-05 2027-12-24 2027-12-31','sgx','Ожидаемая полусессия SGX (перед Новым годом / Рождеством / Lunar NY)',[['09:00','12:00']],true);
+// Mainland China government schedule (exchange's own notice due later)
+for(const [a,b] of [['2027-02-05','2027-02-13'],['2027-04-03','2027-04-05'],['2027-05-01','2027-05-05'],['2027-10-01','2027-10-07']])dates(a,b,d=>ev(d,'sse','closed','Китай: правительственные каникулы (официальное уведомление SSE ожидается)',null,true));
+close('2027-06-09 2027-09-15','sse','Китай: национальный праздник (биржевой календарь предварительный)',true);
+// India's official 2027 exchange holiday circular not available as of reference date. Use tentative dates only.
+close('2027-01-26 2027-03-10 2027-03-22 2027-03-26 2027-04-14 2027-04-15 2027-04-19 2027-05-17 2027-06-15 2027-10-29','nse','NSE: ожидаемый праздничный выходной — календарь 2027 ещё не утверждён',true);
+// Europe official 2027 calendar
+close('2027-03-26 2027-03-29 2027-12-24 2027-12-31','xetra','Xetra: нерабочий торговый день');
+ev('2027-12-30','xetra','unknown','Последняя сессия Xetra 2027: возможно сокращение, точные часы ожидают биржевого уведомления',null,true);
+close('2027-03-26 2027-03-29','euronext','Euronext Paris: Good Friday / Easter Monday');
+partial('2027-12-24 2027-12-31','euronext','Euronext Paris: полусессия; точные часы пока не объявлены',null,true,'unknown');
+close('2027-03-26 2027-03-29 2027-05-03 2027-05-31 2027-08-30 2027-12-27 2027-12-28','lse','LSE: британский банковский выходной');
+partial('2027-12-24 2027-12-31','lse','LSE: торги до 12:30 London',[['08:00','12:30']]);
+// NYSE official 2027. No early close on Christmas Eve 2027: CLOSED in lieu of Dec25.
+close('2027-01-18 2027-02-15 2027-03-26 2027-05-31 2027-06-18 2027-07-05 2027-09-06 2027-11-25 2027-12-24','nyse','NYSE/Nasdaq: официальный праздничный выходной');
+partial('2027-11-26','nyse','После Thanksgiving: до 13:00 ET',[['09:30','13:00']]);
+// CME 2027 official details are not final > mark uncertain, without misleading regular bars on special dates.
+for(const d of ['2027-01-18','2027-02-15','2027-05-31','2027-07-05','2027-09-06'])
+ partial(d,'cme','CME ES/NQ: ожидается остановка 12:00–17:00 CT; проверь официальный праздничный регламент',[['00:00','12:00'],['17:00','24:00']],true,'special');
+close('2027-03-26','cme','CME: Good Friday — ожидаемое закрытие',true);
+for(const d of ['2027-06-18','2027-11-25','2027-11-26','2027-12-24','2027-12-31'])
+ ev(d,'cme','unknown','CME ES/NQ: праздничные часы 2027 необходимо подтвердить по биржевому уведомлению; обычные блоки скрыты',null,true);
+// CME may have an unusual Sunday opening after holiday. Treat the published schedule individually on date before holidays.
+// Обычное открытие CME в воскресенье 27 декабря остаётся в базовом графике.
+const FEATURED=[
+ ['2026-11-26','Thanksgiving 2026','NYSE закрыта; CME в сокращённом режиме'],
+ ['2026-12-24','Рождественский сочельник','У многих площадок сокращённые часы'],
+ ['2027-01-04','Первая неделя года','MOEX торгуется; у KRX поздний старт'],
+ ['2027-02-05','Китайский Новый год','Часть Азии на полусессии или уходит на каникулы'],
+ ['2027-03-26','Good Friday','Большинство Европы и NYSE закрыты'],
+ ['2027-05-03','Майские каникулы','JPX и часть Азии закрыты, MOEX работает'],
+ ['2027-06-18','Juneteenth в США','NYSE закрыта; часы CME уточняются'],
+ ['2027-09-15','Праздники в Азии','Часть Китая, Тайваня и Кореи отдыхает'],
+ ['2027-11-25','Thanksgiving 2027','NYSE закрыта, CME уточнить'],
+ ['2027-11-26','Короткая Америка','NYSE до 13:00 ET'],
+ ['2027-12-24','Christmas 2027','NYSE закрыта, Европа частично сокращена'],
+ ['2027-12-31','Последний день года','JPX/Xetra закрыты, часть рынков полдня']
+];
+// ---- Timezone / calendar calculation ----
+const pad=n=>String(n).padStart(2,'0');
+const minOf=s=>{const [h,m]=s.split(':').map(Number);return h*60+m;};
+const labelM=n=>pad(Math.floor(n/60))+':'+pad(n%60);
+const htmlEscape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function shiftDate(iso,n){return new Date(Date.parse(iso+'T12:00:00Z')+n*86400000).toISOString().slice(0,10)}
+function isWeekend(iso){const d=new Date(iso+'T12:00:00Z').getUTCDay();return d===0||d===6}
+function inRange(s){return s>=START&&s<=END}
+const partsCache=new Map();
+function formatter(tz,kind){const key=tz+'|'+kind;if(!partsCache.has(key))partsCache.set(key,new Intl.DateTimeFormat('en-GB',{timeZone:tz,hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit'}));return partsCache.get(key)}
+function zoneParts(instant,tz){const p=formatter(tz,'parts').formatToParts(new Date(instant)),o={};for(const x of p)if(x.type!=='literal')o[x.type]=Number(x.value);return o}
+function zoneISO(t,tz){const p=zoneParts(t,tz);return `${p.year}-${pad(p.month)}-${pad(p.day)}`}
+// Convert local exchange wall time to an absolute instant; repeated offset iteration handles 2027 DST changes.
+function localInstant(localISO,clock,tz){const [year,month,day]=localISO.split('-').map(Number);const minutes=minOf(clock);const base=Date.UTC(year,month-1,day,Math.floor(minutes/60),minutes%60);let stamp=base;for(let i=0;i<4;i++){const p=zoneParts(stamp,tz);const projected=Date.UTC(p.year,p.month-1,p.day,p.hour,p.minute,p.second);const next=stamp+(base-projected);if(Math.abs(next-stamp)<500)return next;stamp=next}return stamp}
+function dateDisplay(iso,tz){return new Intl.DateTimeFormat('ru-RU',{day:'numeric',month:'long',year:'numeric',weekday:'short',timeZone:tz}).format(localInstant(iso,'12:00',tz))}
+function zoneOffsetString(t,tz){const p=zoneParts(t,tz);const utc=Date.UTC(p.year,p.month-1,p.day,p.hour,p.minute,p.second);const mm=Math.round((utc-t)/60000);return 'UTC'+(mm<0?'−':'+')+pad(Math.floor(Math.abs(mm)/60))+':'+pad(Math.abs(mm)%60)}
+function getStatus(m,date){const e=EVENTS[date]?.[m.id];if(e)return {...e,segments:e.segments===null?m.segments:e.segments};if(isWeekend(date)){
+  if(m.id==='cme')return {kind:'normal',reason:'Globex: выходная часть недели',segments:cmeSegments(date),tentative:false};
+  if(m.id==='moex'&&date>='2027-01-01')return {kind:'unknown',reason:'Даты дополнительных торгов MOEX на выходных 2027 ещё не опубликованы',segments:[],tentative:true,weekendTBD:true};
+  return {kind:'closed',reason:'Обычный выходной',segments:[],tentative:false};
+ }
+ if(m.id==='cme')return {kind:'normal',reason:'Базовая сессия Globex; перерыв 16–17 CT',segments:cmeSegments(date),tentative:false};
+ return {kind:'normal',reason:'Обычный торговый день',segments:m.segments,tentative:false};
+}
+function cmeSegments(date){const wd=new Date(date+'T12:00:00Z').getUTCDay();return wd===0?[['17:00','24:00']]:wd===6?[]:wd===5?[['00:00','16:00']]:[['00:00','16:00'],['17:00','24:00']]}
+function sessionSlices(m,date,zone){
+ const screenStart=localInstant(date,'00:00',zone),screenEnd=localInstant(shiftDate(date,1),'00:00',zone),slices=[];
+ for(let offset=-2;offset<=2;offset++){
+  const localDate=shiftDate(date,offset),status=getStatus(m,localDate);
+  if(status.kind==='unknown'||status.kind==='closed')continue;
+  for(const [from,to] of status.segments){
+   const start=localInstant(localDate,from,m.tz),end=localInstant(localDate,to,m.tz);
+   if(end<=screenStart||start>=screenEnd)continue;
+   const a=Math.max(start,screenStart),b=Math.min(end,screenEnd);
+   if(b<=a)continue;
+   let pa=zoneParts(a,zone),pb=zoneParts(b,zone);
+   let left=(pa.hour*60+pa.minute)/1440*100;
+   let right=b===screenEnd?100:(pb.hour*60+pb.minute)/1440*100;
+   if(right<=left && (b-a)>0)right=Math.min(100,left+(b-a)/86400000*100);
+   slices.push({a,b,left,right,reason:status.reason,kind:status.kind,tentative:status.tentative,exchangeDate:localDate});
+  }
+ }
+ return slices.sort((a,b)=>a.a-b.a);
+}
+let zone='Europe/Madrid',filter='all',selected='2026-11-23',monthAnchor='2026-11-01',userZoneDetected='Europe/Madrid';
+function localToday(){return zoneISO(Date.now(),zone)}
+function isTodaySelected(){return selected===localToday()}
+function rows(){return MARKETS.filter(m=>filter==='all'||m.region===filter)}
+function selectedMonth(iso){return iso.slice(0,7)+'-01'}
+function monthMove(iso,num){const [y,m]=iso.split('-').map(Number);const d=new Date(Date.UTC(y,m-1+num,1));return d.toISOString().slice(0,10)}
+function displayTZ(tz){return ZONES.find(x=>x[0]===tz)?.[1]||tz}
+function tickMarkup(){let out='<div class="hours"><div class="axislabel">БИРЖА / СЕССИЯ</div><div class="axis">';for(let h=0;h<=24;h+=2){out+=`<span class="tick ${h===0?'first':h===24?'last':''}" style="left:${h/24*100}%">${pad(h)}:00</span>`}return out+'</div></div>'}
+function todayLine(){if(!isTodaySelected())return '';const p=zoneParts(Date.now(),zone),left=(p.hour*60+p.minute)/1440*100;return `<div class="now-line" style="left:${left}%" title="Сейчас: ${pad(p.hour)}:${pad(p.minute)}"></div>`}
+function renderChart(){
+ const r=rows();let html=tickMarkup();let open=0,closed=0,special=0;
+ for(const m of r){const sl=sessionSlices(m,selected,zone),localDate=zoneISO(localInstant(selected,'12:00',zone),m.tz),s=getStatus(m,localDate),isTBD=s.kind==='unknown',isClosed=!sl.length&&!isTBD;
+  if(sl.length)open++;else if(isClosed)closed++;
+  if(isTBD||sl.some(v=>v.kind!=='normal'||v.tentative)||s.tentative||(!isWeekend(localDate)&&s.kind!=='normal'))special++;
+  let track='';
+  if(sl.length){for(const piece of sl){const width=piece.right-piece.left;const mark=piece.kind==='special'?' special':'';const warn=piece.tentative?' tentative':'';
+   const start=zoneParts(piece.a,zone);const end=zoneParts(piece.b,zone);const ls=`${pad(start.hour)}:${pad(start.minute)}`;const le=piece.right>=99.99?'24:00':`${pad(end.hour)}:${pad(end.minute)}`;
+   track+=`<div class="bar ${m.region}${mark}${warn}" style="left:${piece.left}%;width:${Math.max(0.12,width)}%" title="${htmlEscape(m.name+' · '+ls+'–'+le+' · '+piece.reason+(piece.tentative?' (предварительно)':''))}">${width>7?`<span class="bar-title">${ls}</span>`:''}</div>`;
+  }}else if(isTBD){track=`<div class="closed-track unknown-track" title="${htmlEscape(s.reason)}">⚠ Часы уточняются</div>`}
+  else{track=`<div class="closed-track" title="${htmlEscape(s.reason)}">✕ &nbsp; Закрыто</div>`}
+  track+=todayLine();
+  const warning=s.tentative||s.kind==='unknown'?'<span class="caution" title="Календарь/время требует подтверждения">◇</span>':'';
+  html+=`<div class="trow"><div class="mname"><span class="flag">${m.flag}</span><div class="mtext"><strong>${htmlEscape(m.name)} ${warning}</strong><small>${htmlEscape(m.sub)}</small></div></div><div class="track">${track}</div></div>`;
+ }
+ document.getElementById('timeline').innerHTML=html;
+ document.getElementById('openCount').textContent=open;
+ document.getElementById('closedCount').textContent=closed;
+ document.getElementById('specialCount').textContent=special;
+ const daylightMinutes=Math.round((localInstant(shiftDate(selected,1),'00:00',zone)-localInstant(selected,'00:00',zone))/60000);
+ document.getElementById('selectedDate').textContent=dateDisplay(selected,zone)+' · '+displayTZ(zone)+' · '+zoneOffsetString(localInstant(selected,'12:00',zone),zone);
+ document.getElementById('dstNotice').textContent=daylightMinutes===1440?'':`В этот день часы переводятся: календарный день содержит ${daylightMinutes/60} часа. Шкала показывает местные часы.`;
+ renderInfo(r);
+}
+function renderInfo(r){
+ const content=document.getElementById('dayInfo');let html='';const notable=r.map(m=>{const local=zoneISO(localInstant(selected,'12:00',zone),m.tz);return {m,local,s:getStatus(m,local)}}).filter(x=>x.s.kind!=='normal'||x.s.tentative);
+ if(notable.length){html+='<h3>Праздники / изменения выбранной даты</h3>';for(const x of notable){const s=x.s,cls=s.kind==='closed'?'holiday':s.kind==='early'?'early':s.kind==='unknown'?'unknown':'';const descr=s.kind==='closed'?'Закрыта':s.kind==='unknown'?'Часы не утверждены':s.kind==='special'?'Особая сессия':'Короткий день';html+=`<div class="notice ${cls}"><span class="nicon">${s.kind==='closed'?'✕':s.kind==='unknown'?'⚠':'◷'}</span><div><strong>${x.m.flag} ${htmlEscape(x.m.name)}</strong> — ${descr}${s.tentative?' · предварительно':''}<small>${htmlEscape(s.reason)}</small></div></div>`;}}
+ else html+='<h3>Особенности дня</h3><div class="notice">Подтверждённых отклонений от стандартного расписания для выбранных рынков не найдено.</div>';
+ if(selected.startsWith('2027')&&r.some(m=>m.id==='nse'))html+='<div class="notice unknown">⚠ Календарь NSE India на 2027 не опубликован официально; предварительные праздники отмечены, но другие закрытия возможны.</div>';
+ if(selected.startsWith('2027')&&isWeekend(selected)&&r.some(m=>m.id==='moex'))html+='<div class="notice unknown">⚠ MOEX: расписание дополнительных сессий в выходные 2027 года требует обновления.</div>';
+ const earliest=[];for(const m of r){for(const x of sessionSlices(m,selected,zone)){if(x.left<99.9)earliest.push({m,x})}}
+ if(earliest.length){earliest.sort((a,b)=>a.x.left-b.x.left);html+='<h3>Первые открытия и продолжения торгов</h3><div class="info-summary">'+earliest.slice(0,6).map(({m,x})=>{const p=zoneParts(x.a,zone);return `<span class="bubble"><b>${pad(p.hour)}:${pad(p.minute)}</b> · ${m.flag} ${htmlEscape(m.id.toUpperCase())}${x.a<=localInstant(selected,'00:00',zone)?' ↩':''}</span>`}).join('')+'</div>'}
+ content.innerHTML=html;
+}
+function calendarDots(date){let set=new Set();for(const m of MARKETS){const s=getStatus(m,date);if(s.weekendTBD)continue;if(s.kind==='closed'&&!isWeekend(date))set.add(s.tentative?'uncertain':'close');else if(s.kind==='early')set.add(s.tentative?'uncertain':'early');else if(s.kind==='special')set.add(s.tentative?'uncertain':'special');else if(s.kind==='unknown')set.add('uncertain')}
+ return [...set].sort((a,b)=>['close','early','special','uncertain'].indexOf(a)-['close','early','special','uncertain'].indexOf(b));}
+const MONTHS_RU=['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+function renderMonths(){let html='';for(let offset=0;offset<2;offset++){const iso=monthMove(monthAnchor,offset);if(iso>END)break;const [y,mo]=iso.split('-').map(Number),days=new Date(Date.UTC(y,mo,0)).getUTCDate(),first=(new Date(Date.UTC(y,mo-1,1)).getUTCDay()+6)%7;
+ html+=`<section class="month"><div class="monthtitle"><strong>${MONTHS_RU[mo-1][0].toUpperCase()+MONTHS_RU[mo-1].slice(1)} ${y}</strong><small>${htmlEscape(displayTZ(zone))}</small></div><div class="week">`;
+ for(const w of ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'])html+=`<span class="weekday">${w}</span>`;
+ for(let k=0;k<first;k++)html+='<span class="day empty"></span>';
+ for(let d=1;d<=days;d++){const date=`${y}-${pad(mo)}-${pad(d)}`,valid=inRange(date),weekend=isWeekend(date),sel=date===selected,now=date===localToday();const dots=valid?calendarDots(date).map(x=>`<i class="dot ${x}"></i>`).join(''):'';
+ html+=`<button class="day ${weekend?'weekend':''} ${sel?'selected':''} ${now?'today':''} ${valid?'':'outofrange'}" type="button" data-date="${date}" ${valid?'':'disabled'} aria-pressed="${sel}" title="${date}">${d}<span class="dots">${dots}</span></button>`}
+ html+='</div></section>'}
+ document.getElementById('months').innerHTML=html;
+ document.querySelectorAll('[data-date]').forEach(b=>b.addEventListener('click',()=>changeDate(b.dataset.date)));
+ document.getElementById('monthPrev').disabled=monthAnchor<='2026-11-01';
+ document.getElementById('monthNext').disabled=monthAnchor>='2027-12-01';
+ document.getElementById('monthSelect').value=monthAnchor.slice(0,7);
+}
+function renderKeyDates(){const subset=FEATURED.filter(x=>x[0]>=monthAnchor.slice(0,7)+'-01'&&x[0]<monthMove(monthAnchor,2)).slice(0,8);
+ document.getElementById('keyDates').innerHTML=(subset.length?subset:FEATURED.filter(x=>x[0]>=selected).slice(0,5)).map(([d,title,desc])=>`<div class="changeitem" tabindex="0" role="button" data-feature="${d}"><span class="changeDate">${d.slice(8)}.${d.slice(5,7)}<br>${d.slice(0,4)}</span><div class="changeBody"><strong>${htmlEscape(title)}</strong><small>${htmlEscape(desc)}</small></div></div>`).join('');
+ document.querySelectorAll('[data-feature]').forEach(el=>{const on=()=>changeDate(el.dataset.feature);el.addEventListener('click',on);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();on()}})});
+}
+function updateClock(){const now=Date.now(),p=zoneParts(now,zone);document.getElementById('liveClock').textContent=`${pad(p.hour)}:${pad(p.minute)}:${pad(p.second)}`;
+ document.getElementById('liveDate').textContent=`${pad(p.day)}.${pad(p.month)}.${p.year} · ${zoneOffsetString(now,zone)} · ${zone}`;
+ document.getElementById('clockLabel').textContent=`Сейчас · ${displayTZ(zone)}`;
+ if(isTodaySelected()){
+  for(const node of document.querySelectorAll('.now-line'))node.style.left=((p.hour*60+p.minute)/1440*100)+'%';
+ }
+}
+function changeDate(date,{keepMonth=false}={}){if(!inRange(date))return;selected=date;
+ if(!keepMonth){const mon=selectedMonth(date);if(mon<monthAnchor||mon>=monthMove(monthAnchor,2))monthAnchor=mon}
+ document.getElementById('dateInput').value=date;
+ renderChart();renderMonths();renderKeyDates();
+ document.getElementById('prev').disabled=selected<=START;
+ document.getElementById('next').disabled=selected>=END;
+ try{const u=new URL(location.href);u.searchParams.set('date',date);history.replaceState(null,'',u.toString())}catch{}
+}
+function chooseTZ(tz,save=true){const preference=tz;if(tz==='auto')tz=userZoneDetected;try{new Intl.DateTimeFormat('en',{timeZone:tz})}catch{return}zone=tz;
+ document.getElementById('timezoneSelect').value=preference==='auto'?'auto':(ZONES.some(x=>x[0]===zone)?zone:'auto');
+ document.getElementById('timezoneCaption').textContent='Время на графике: '+displayTZ(zone)+' · '+zoneOffsetString(Date.now(),zone);
+ if(save){try{localStorage.setItem('market-clock-zone',preference)}catch{}}
+ renderChart();renderMonths();renderKeyDates();updateClock();
+}
+function init(){
+ userZoneDetected=Intl.DateTimeFormat().resolvedOptions().timeZone||'Europe/Madrid';
+ let saved='Europe/Madrid';try{saved=localStorage.getItem('market-clock-zone')||'Europe/Madrid'}catch{}
+ let pdate='';try{pdate=new URL(location.href).searchParams.get('date')||''}catch{}
+ zone=ZONES.some(z=>z[0]===saved)?saved:(saved==='auto'?userZoneDetected:'Europe/Madrid');
+ const today=localToday();selected=inRange(pdate)?pdate:(inRange(today)?today:START);
+ monthAnchor=selectedMonth(selected);
+ const tzsel=document.getElementById('timezoneSelect');tzsel.innerHTML=ZONES.map(([t,l])=>`<option value="${t}">${l} (${t})</option>`).join('')+`<option value="auto">Мой часовой пояс (авто: ${htmlEscape(userZoneDetected)})</option>`;
+ tzsel.value=ZONES.some(z=>z[0]===zone)?zone:'auto';
+ document.getElementById('timezoneCaption').textContent='Время на графике: '+displayTZ(zone);
+ const monthSelect=document.getElementById('monthSelect');for(let d='2026-11-01';d<='2027-12-01';d=monthMove(d,1)){
+  const [yy,mo]=d.split('-').map(Number),o=document.createElement('option');o.value=d.slice(0,7);o.textContent=MONTHS_RU[mo-1]+' '+yy;monthSelect.appendChild(o)
+ }
+ // Official exchange source URLs are stored in SOURCES above, deliberately hidden from the interface.
+ tzsel.addEventListener('change',()=>chooseTZ(tzsel.value));
+ document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(z=>z.classList.toggle('active',z===b));renderChart()}));
+ document.getElementById('prev').addEventListener('click',()=>changeDate(shiftDate(selected,-1)));
+ document.getElementById('next').addEventListener('click',()=>changeDate(shiftDate(selected,1)));
+ document.getElementById('today').addEventListener('click',()=>changeDate(inRange(localToday())?localToday():START));
+ document.getElementById('dateInput').addEventListener('change',e=>changeDate(e.target.value));
+ document.getElementById('monthPrev').addEventListener('click',()=>{monthAnchor=monthMove(monthAnchor,-1);renderMonths();renderKeyDates()});
+ document.getElementById('monthNext').addEventListener('click',()=>{monthAnchor=monthMove(monthAnchor,1);renderMonths();renderKeyDates()});
+ monthSelect.addEventListener('change',e=>{monthAnchor=e.target.value+'-01';renderMonths();renderKeyDates()});
+ document.getElementById('copyLink').addEventListener('click',async()=>{const link=new URL(location.href);link.searchParams.set('date',selected);link.searchParams.set('tz',zone);let ok=false;try{await navigator.clipboard.writeText(link.href);ok=true}catch{}document.getElementById('copyLink').textContent=ok?'Скопировано ✓':'Дата: '+selected;setTimeout(()=>document.getElementById('copyLink').textContent='Скопировать ссылку на дату',1600)});
+ try{const t=new URL(location.href).searchParams.get('tz');if(t)zone=ZONES.some(z=>z[0]===t)?t:zone}catch{}
+ tzsel.value=zone;changeDate(selected);chooseTZ(zone,false);updateClock();
+ setInterval(()=>{const before=isTodaySelected();updateClock();if(before&&selected!==localToday()){renderChart();renderMonths()}},1000);
+}
+init();
+
+</script>
+</body>
+</html>
