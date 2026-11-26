@@ -1,0 +1,52 @@
+name: Refresh MOEX futures reference
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/forts-reference.yml'
+  schedule:
+    - cron: '11 6,10,14,18,21 * * 1-5'
+permissions:
+  contents: write
+concurrency:
+  group: forts-reference
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse public contract specifications
+        run: |
+          python3 - <<'PY'
+          import json, re, urllib.request
+          from datetime import datetime, timezone
+          from pathlib import Path
+          url = 'https://long-short.ru/calculators/fyuchersy'
+          with urllib.request.urlopen(url, timeout=30) as response:
+              html = response.read().decode('utf-8')
+          rows = {}
+          for script in re.findall(r'self\.__next_f\.push\(\[1,("(?:\\.|[^"\\])*")\]\)',html):
+              for obj in re.findall(r'\{"secid":"[^"{}]+",[^{}]*\}',json.loads(script)):
+                  c = json.loads(obj)
+                  if not (c.get('minStep',0)>0 and c.get('stepPrice',0)>0):
+                      continue
+                  expiry = 'вечный' if c.get('perpetual') else c.get('lastTradeDate')
+                  rows[c['secid']] = [c['secid'],c.get('name'),c.get('price'),c['minStep'],c['stepPrice'],expiry]
+          if len(rows)<100:
+              raise ValueError('Incomplete contract reference')
+          p=Path('forts/reference.json')
+          items=sorted(rows.values(),key=lambda row:row[0])
+          if not p.exists() or json.loads(p.read_text()).get('rows')!=items:
+              p.write_text(json.dumps(dict(received=datetime.now(timezone.utc).isoformat(),rows=items),ensure_ascii=False,separators=(',',':'))+'\n')
+          PY
+      - name: Save updated reference
+        run: |
+          git add forts/reference.json
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'Refresh public futures reference'
+            git push
+          fi
