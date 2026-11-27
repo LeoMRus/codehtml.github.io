@@ -58,8 +58,26 @@ async function candles(ticker,intraday,b){
 }
 async function vol(ticker,id){const b=bounds();stats=[];volText=['Загрузка…','Загрузка…','Загрузка…'];draw();await Promise.all([true,false].map(async intra=>{const ids=intra?[0]:[1,2];try{const {bars,source}=await candles(ticker,intra,b);if(id!==selection)return;for(const i of ids){stats[i]=summarize(i===0?bars:bars.filter(x=>x.date>=(i===1?b.mon:b.month)));volText[i]=stats[i]?source:'Нет завершённых свечей'}}catch{if(id!==selection)return;ids.forEach(i=>volText[i]='Нет данных от MOEX и АЛОР')}draw()}))}
 function select(raw,force=false){clearTimeout(searchTimer);const k=key(raw);if(!k||(!force&&active===k))return;const changed=active!==k;active=k;const id=++selection;const c=map.get(k),ticker=c?.ticker||raw.trim();$('ticker').value=ticker;if(changed)dirty=false;setQuote(c);void vol(ticker,id);void issCatalog(ticker).then(rows=>{if(id!==selection)return;for(const r of rows)if(key(r.ticker)===k)insert(r);setQuote(map.get(k));persist();if(!rows.some(r=>r.price>0))void reserveQuote(ticker,id)}).catch(()=>reserveQuote(ticker,id))}
-async function refresh(){const id=++seq;$('refresh').disabled=true;$('network').textContent='Обновление…';if(active)select(map.get(active)?.ticker||active,true)
- try{const rows=await issCatalog();if(!rows.length)throw Error();if(id!==seq)return;rows.forEach(insert);options();persist();if(active)setQuote(map.get(active));$('network').textContent='MOEX ISS · '+rows.length+' контрактов'}catch{if(id===seq)$('network').textContent='ISS недоступен · сохранённый справочник'}finally{if(id===seq)$('refresh').disabled=false}}
+async function refresh(){
+ const id=++seq
+ $('refresh').disabled=true
+ $('network').textContent='Обновление…'
+ if(active)select(map.get(active)?.ticker||active,true)
+ const [iss,backup]=await Promise.allSettled([issCatalog(),loadBackup()])
+ if(id!==seq)return
+ if(iss.status==='fulfilled'&&iss.value.length){
+   iss.value.forEach(insert)
+   $('network').textContent='Каталог MOEX ISS · '+iss.value.length+' контрактов'
+ }else if(backup.status==='fulfilled'){
+   $('network').textContent='Справочник Long/Short · '+backup.value.count+' контрактов · '+backup.value.date
+ }else{
+   $('network').textContent=map.size?'Используется сохранённая копия. Обновление недоступно.':'Данные недоступны'
+ }
+ options()
+ persist()
+ if(active)setQuote(map.get(active))
+ $('refresh').disabled=false
+}
 function choice(name){return document.querySelector('input[name="'+name+'"]:checked').value}
 function draw(){$('planlabel').textContent=active ? active+' · '+(choice('side')==='1'?'Лонг':'Шорт') : '';for(let i=0;i<3;i++){const a=stats[i];$('v'+i).textContent=a?fmt(a.points,5)+' п.':'—';$('vs'+i).textContent=a?fmt(a.pct,3)+'% · '+a.n+' свеч. · '+volText[i]:volText[i]||'—'}
  $('rows').replaceChildren();$('comparison').textContent='';try{if(!active)throw Error('Выберите контракт.');let budget=num('limit');if(choice('mode')==='pct'){if(!(num('capital')>0&&budget>0&&budget<=100))throw Error('Проверьте капитал и процент риска.');budget*=num('capital')/100}
@@ -88,12 +106,22 @@ document.querySelectorAll('input[type=radio]').forEach(radio=>radio.addEventList
 document.querySelectorAll('input:not([type=radio])').forEach(e=>{if(!['ticker','entry'].includes(e.id))e.addEventListener('input',draw)})
 function seed(rows,date){for(const [ticker,name,price,step,value,expiry] of rows){const exp=/^\d{2}\.\d{2}\.\d{4}$/.test(expiry)?expiry.split('.').reverse().join('-'):expiry;if(exp&&exp!=='вечный'&&exp<msk(Date.now()))continue;insert({ticker,name,step,value,expiry:exp,price,specSource:'Long/Short · снимок '+date,quoteSource:'Цена из справочника · снимок '+date+' · время сделки неизвестно'})}}
 seed(initial,new Date("2026-11-26T23:05:26.171470+00:00").toLocaleString('ru-RU'));const saved=cached();if(Array.isArray(saved?.records))for(const c of saved.records){if(!c.expiry||c.expiry==='вечный'||c.expiry>=msk(Date.now()))insert(c)}
-async function loadBackup(){try{
+async function loadBackup(){
  const d=await json('https://raw.githubusercontent.com/leomrus/codehtml.github.io/HEAD/forts/reference.json')
- if(!Array.isArray(d.rows)||!Number.isFinite(Date.parse(d.received)))return
- const existing=[...map.values()].filter(c=>c.specSource?.startsWith('MOEX')||c.quoteSource?.startsWith('Последняя сделка'))
- seed(d.rows,new Date(d.received).toLocaleString('ru-RU'));existing.forEach(insert);options();if(active)setQuote(map.get(active))
- }catch{}}
-void loadBackup();options();select(map.has('GDZ6')?'GDZ6':(map.values().next().value?.ticker||'SiZ6'));refresh()
+ if(!Array.isArray(d.rows)||!d.rows.length||!Number.isFinite(Date.parse(d.received)))throw Error('Справочник недоступен')
+ const date=new Date(d.received).toLocaleString('ru-RU',{timeZone:'Europe/Moscow'})+' МСК'
+ const existing=new Map(map)
+ seed(d.rows,date)
+ for(const [ticker,row] of map){
+   const previous=existing.get(ticker)
+   if(previous===row||!previous)continue
+   const updates={}
+   if(previous.specSource?.startsWith('MOEX'))Object.assign(updates,{step:previous.step,value:previous.value,specSource:previous.specSource,lot:previous.lot})
+   if(previous.quoteSource?.startsWith('Последняя сделка'))Object.assign(updates,{price:previous.price,quoteSource:previous.quoteSource})
+   Object.assign(row,updates)
+ }
+ return {count:d.rows.length,date}
+}
+options();select(map.has('GDZ6')?'GDZ6':(map.values().next().value?.ticker||'SiZ6'));refresh()
 
 </script></body></html>
